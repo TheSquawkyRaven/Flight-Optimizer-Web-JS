@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src="tailwindcdn.js"></script>
+	<link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+
+	<h1>Flight Optimzer</h1>
+
+	<div id="basic-info">
+		<div>
+			<p>
+				Basic Info
+			</p>
+		</div>
+		<div class="flex gap-2">
+			<div>
+				<p id="trip-type">
+					
+				</p>
+			</div>
+			<div>
+				<p id="adults">
+					
+				</p>
+			</div>
+			<div>
+				<p id="flight-type">
+					
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div id="current-info">
+		<div>
+			<p>
+				Flight Info
+			</p>
+		</div>
+		<div>
+			<div class="flex gap-2">
+				<p id="from-airport">
+
+				</p>
+				<p>-</p>
+				<p id="to-airport">
+
+				</p>
+			</div>
+			<div class="flex gap-2">
+				<p id="go-date">
+					
+				</p>
+				<p>-</p>
+				<p id="back-date">
+
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<div id="settings">
+			<div class="flex">
+				<p>
+					Days:
+				</p>
+				<input id="days" type="number" class="border">
+			</div>
+		</div>
+		<button id="start-scrape" class="border-2">
+			Start Scrape
+		</button>
+		<div>
+			<textarea id="scrape-converted-csv" readonly></textarea>
+		</div>
+	</div>
+
+	<div>
+		<div>
+			Flatten: <input id="flatten-csv" type="checkbox">
+			<button id="convert-data" class="border-2">
+				Convert Dat to CSV
+			</button>
+			<textarea id="converted-csv" readonly></textarea>
+		</div>
+	</div>
+
+
+
+	<script src="popup.js"></script>
+	<script src="popup/infoScrape.js"></script>
+	<script src="popup/fullScrape.js"></script>
+	<script src="dat.js"></script>
+	<script src="tocsv.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+	"name": "Flight Optimizer",
+	"description": "Made by Raven",
+	"version": "1.0",
+	"permissions": [
+		"activeTab",
+		"cookies",
+		"storage",
+		"scripting"
+	],
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": {}
+	},
+	"host_permissions": [
+		"<all_urls>"
+	],
+	"manifest_version": 3
+}
