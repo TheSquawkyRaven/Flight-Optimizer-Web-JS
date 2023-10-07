@@ -31,6 +31,11 @@ function infoScraperListener(request, sender, sendResponse) {
         sendResponse(error)
         return
     }
+    if (tripType.textContent.includes("Multi-city")) {
+        error.error = "Multi-city flights are currently not supported, please choose Round Trip or One Way"
+        sendResponse(error)
+        return
+    }
     
     const dates = document.querySelectorAll(".TP4Lpb.eoY5cb.j0Ppje")
     if (dates == null) {
@@ -67,9 +72,8 @@ function infoScraperListener(request, sender, sendResponse) {
         return
     }
     if (!title.includes("eparting")) {
-        sendResponse({
-            error: "You must be in the Departing Flights page, not the Returning Flights page"
-        })
+        error.error = "You must be in the Departing Flights page, not the Returning Flights page"
+        sendResponse(error)
         return
     }
 
