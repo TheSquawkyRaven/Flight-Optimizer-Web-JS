@@ -2,7 +2,7 @@
 const roundTripText = "Round trip"
 const oneWayText = "One way"
 
-const csvHeaderPreset = `ID, Date To Destination, Date From Destination, To Airline, To Departure, To Arrival, To Listed Price, From Airline, From Departure, From Arrival, From Listed Price`
+const csvHeaderPreset = `ID, Date To Destination, Date From Destination, To Airline, To Departure, To Arrival, To Travel Time, To Listed Price, From Airline, From Departure, From Arrival, From Travel Time, From Listed Price`
 var csvHeader = ""
 var csvContent = ""
 var csv = ""
@@ -39,7 +39,7 @@ function processDat(data) {
                 return
             }
 
-            let departureInfo = `, ${toFlight.airline.replace(",", ".")}, ${toFlight.departure}, ${toFlight.arrivalTime}, ${toFlight.listedPrice.replace(/[^0-9]/g, "")}`.replace(/\+[0-9]/g, "")
+            let departureInfo = `, ${toFlight.airline.replace(",", ".")}, ${toFlight.departure}, ${toFlight.arrivalTime}, ${toFlight.travelTime}, ${toFlight.listedPrice.replace(/[^0-9]/g, "")}`.replace(/\+[0-9]/g, "")
 
             if (isRoundTrip) {
                 let basicInfo = `${key}, ${departureDate}, ${roundReturnDate}`
@@ -50,7 +50,7 @@ function processDat(data) {
                     }
                     resetPurchaseSites(purchaseSites)
 
-                    let roundReturnInfo = `, ${fromFlight.airline.replace(",", ".")}, ${fromFlight.departure}, ${fromFlight.arrivalTime}, ${fromFlight.listedPrice.replace(/[^0-9]/g, "")}`.replace(/\+[0-9]/g, "")
+                    let roundReturnInfo = `, ${fromFlight.airline.replace(",", ".")}, ${fromFlight.departure}, ${fromFlight.arrivalTime}, ${fromFlight.travelTime}, ${fromFlight.listedPrice.replace(/[^0-9]/g, "")}`.replace(/\+[0-9]/g, "")
 
                     let priceInfo = retrievePrice(fromFlight, purchaseSites, purchaseOrder, flatten)
                     if (!flatten) {
@@ -133,7 +133,7 @@ function fillHeader(isRoundTrip, isOneWay, purchaseSites, purchaseOrder, flatten
 
     }
     else if (isOneWay) {
-        csvHeader = csvHeader.replace(", Date From Destination", "")
+        csvHeader = csvHeader.replace(", Date From Destination", "").replace(", From Airline, From Departure, From Arrival, From Travel Time, From Listed Price", "")
     }
 }
 
