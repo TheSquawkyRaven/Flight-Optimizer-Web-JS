@@ -28,6 +28,11 @@ function injectInfoScraper(tab) {
 
 function retrieveInfoScrapedData(response) {
 
+	if (response.error) {
+		alert(response.error)
+		return
+	}
+
 	scrapedInfo = response
 
 	tripTypeP.textContent = response.tripType
