@@ -86,8 +86,8 @@ function waitToLoad(next) {
     // The weirdest but the only way to find out if google has finished loading
     let waitForLoading = true
     let interval = setInterval(() => {
-        let st = document.querySelector(".VfPpkd-qNpTzb-P1ekSe.VfPpkd-qNpTzb-P1ekSe-OWXEXe-A9y3zc.VfPpkd-qNpTzb-P1ekSe-OWXEXe-OiiCO-IhfUye.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO-OiiCO-Xhs9z")
-        if (st == null) {
+        let loadingBar = document.querySelector(".VfPpkd-qNpTzb-P1ekSe.VfPpkd-qNpTzb-P1ekSe-OWXEXe-A9y3zc.VfPpkd-qNpTzb-P1ekSe-OWXEXe-OiiCO-IhfUye.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO-OiiCO-Xhs9z")
+        if (loadingBar == null) {
             console.log("Loading")
             waitForLoading = false
         }
