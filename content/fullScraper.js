@@ -8,7 +8,7 @@ if (fullScraper_constants === undefined) {
     var flightQuery = ".pIav2d"
     var clickableFlightQuery = ".OgQvJf.nKlB3b"
     var dateLeftRightButtonsQuery = ".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-Bz112c-M1Soyc.LjDxcd.XhPA0b.LQeN7.Tmm8n"
-    
+
     var fStopsQuery = ".BbR8Ec > .EfT7Ae.AdWm1c.tPgKwe > .ogfYpf"
     var fTimeSetQuery = ".Ir0Voe > .zxVSec.YMlIz.tPgKwe.ogfYpf > .mv1WYe"
     var fDepatureTimeQuery = "span > span > span"
@@ -25,16 +25,17 @@ if (fullScraper_constants === undefined) {
     var priceSiteQuery = ".ogfYpf.AdWm1c"
     var pricePriceQuery = ".IX8ct.YMlIz.Y4RJJ"
 
+    var searchOtherFlightQuery = ".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-k8QpJ.VfPpkd-LgbsSe-OWXEXe-dgl2Hf.nCP5yc.AjY5Oe.DuMIQc.LQeN7.z18xM.rtW97.Q74FEc"
 
     var currentDay
     var requiredDays
-    
+
     var maxStops
-    
+
     var scrapedInfo
     var isRoundTrip
     var isOneWay
-    
+
     var data
     var builtData
     var currentKey
@@ -124,6 +125,7 @@ function waitToLoad(next) {
     console.log("Waiting to Load")
     // The weirdest but the only way to find out if google has finished loading
     let waitForLoading = true
+    let preloads = 0
     let interval = setInterval(() => {
         let loadingBar = document.querySelector(loadingBarQuery)
         if (loadingBar == null) {
@@ -138,6 +140,11 @@ function waitToLoad(next) {
             }
             else {
                 console.log("Pre-Loading")
+                preloads++
+                // Probably google loaded too fast at this point
+                if (preloads > 200) {
+                    waitForLoading = false
+                }
             }
         }
     }, 10)
@@ -173,7 +180,7 @@ function nextDay() {
     if (isRoundTrip) {
         const fromRightBtn = buttons[1]
         fromRightBtn.click()
-    
+
         const toRightBtn = buttons[3]
         toRightBtn.click()
     }
@@ -234,7 +241,19 @@ function readToFlight() {
                 // Load price instantly
                 console.log("Prepare to Load Price")
                 waitToLoad(() => {
-                    currentToFlight.prices = readPrices()
+                    let fetchedPrices = readPrices()
+                    if (!fetchedPrices) {
+                        // Google Fart -> Sorry, the itinerary you selected is no longer available
+                        // // Remove just added element
+                        // data[currentKey].pop()
+                        data[currentKey][data[currentKey].length - 1] = {
+                            skip: true
+                        }
+                        console.warn("Google Fart -> Sorry, the itinerary you selected is no longer available")
+                    }
+                    else {
+                        currentToFlight.prices = fetchedPrices
+                    }
                     goBack()
                     waitToLoad(() => {
                         proceedToFlight()
@@ -250,7 +269,7 @@ function readToFlight() {
         }
     }
     else {
-        console.warn("Finished To Flight")
+        console.log("Finished To Flight")
         console.log(data)
         return 1
     }
@@ -298,7 +317,17 @@ function readFromFlight() {
             clickFlight(listNode.parentNode, index)
             console.log("Prepare to Load Price")
             waitToLoad(() => {
-                currentFromFlight.prices = readPrices()
+                let fetchedPrices = readPrices()
+                if (!fetchedPrices) {
+                    // Google Fart -> Sorry, the itinerary you selected is no longer available
+                    console.warn("Google Farted -> Sorry, the itinerary you selected is no longer available")
+                    currentToFlight.fromFlight[currentToFlight.fromFlight.length - 1] = {
+                        skip: true
+                    }
+                }
+                else {
+                    currentFromFlight.prices = fetchedPrices
+                }
                 goBack()
                 waitToLoad(() => {
                     proceedFromFlight()
@@ -312,7 +341,7 @@ function readFromFlight() {
 
     }
     else {
-        console.warn("Finished From Flight")
+        console.log("Finished From Flight")
         return 1
     }
 }
@@ -379,6 +408,10 @@ function readPrices() {
     if (!list) {
         // If the price list doesn't have the expandable, then it is in this different query
         list = document.querySelector(priceListQuerySecondary)
+    }
+    if (!list) {
+        // In a rare google fart occassion, this error may occur: Sorry, the itinerary you selected is no longer available
+        return
     }
     const priceNodes = list.querySelectorAll(pricesQuery)
     priceNodes.forEach((price) => {
