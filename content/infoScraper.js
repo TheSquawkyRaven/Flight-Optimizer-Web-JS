@@ -1,4 +1,16 @@
 
+if (infoScraper_constants === undefined) {
+    var infoScraper_constants = true
+
+    var typesQuery = ".VfPpkd-uusGie-fmcmS"
+    var adultsQuery = ".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-k8QpJ.VfPpkd-LgbsSe-OWXEXe-Bz112c-UbuQg.VfPpkd-LgbsSe-OWXEXe-dgl2Hf.nCP5yc.AjY5Oe.LQeN7.okSQSd.xH2dp.VmOqfd.aKzZ8d"
+    var datesQuery = ".TP4Lpb.eoY5cb.j0Ppje"
+    var airportQuery = ".II2One.j0Ppje.zmMKJ.LbIaRd"
+    var flightTitleQuery = ".zBTtmb.ZSxxwc"
+
+}
+
+
 function infoScraperListener(request, sender, sendResponse) {
 
     chrome.runtime.onMessage.removeListener(infoScraperListener)
@@ -24,14 +36,14 @@ function infoScraperListener(request, sender, sendResponse) {
     }
 
     // Trip General Info
-    const types = document.querySelectorAll(".VfPpkd-uusGie-fmcmS")
+    const types = document.querySelectorAll(typesQuery)
     if (types == null) {
         sendResponse(error)
         return
     }
     const tripType = types[0]
     const flightType = types[1]
-    const adults = document.querySelector(".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-k8QpJ.VfPpkd-LgbsSe-OWXEXe-Bz112c-UbuQg.VfPpkd-LgbsSe-OWXEXe-dgl2Hf.nCP5yc.AjY5Oe.LQeN7.okSQSd.xH2dp.VmOqfd.aKzZ8d")
+    const adults = document.querySelector(adultsQuery)
     if (tripType == null || flightType == null || adults == null) {
         sendResponse(error)
         return
@@ -43,7 +55,7 @@ function infoScraperListener(request, sender, sendResponse) {
     }
     
     // Dates
-    const dates = document.querySelectorAll(".TP4Lpb.eoY5cb.j0Ppje")
+    const dates = document.querySelectorAll(datesQuery)
     if (dates == null) {
         sendResponse(error)
         return
@@ -56,7 +68,7 @@ function infoScraperListener(request, sender, sendResponse) {
     }
 
     // Airports
-    const airports = document.querySelectorAll(".II2One.j0Ppje.zmMKJ.LbIaRd")
+    const airports = document.querySelectorAll(airportQuery)
     if (airports == null) {
         sendResponse(error)
         return
@@ -69,7 +81,7 @@ function infoScraperListener(request, sender, sendResponse) {
     }
 
     // Flight title check (Departing/Returning flights)
-    const flightTitle = document.querySelector(".zBTtmb.ZSxxwc")
+    const flightTitle = document.querySelector(flightTitleQuery)
     if (flightTitle == null) {
         sendResponse(error)
         return

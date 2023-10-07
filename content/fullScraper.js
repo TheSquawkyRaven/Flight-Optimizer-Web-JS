@@ -1,4 +1,32 @@
 
+if (fullScraper_constants === undefined) {
+    var fullScraper_constants = true
+
+    var datesQuery = ".TP4Lpb.eoY5cb.j0Ppje"
+    var loadingBarQuery = ".VfPpkd-qNpTzb-P1ekSe.VfPpkd-qNpTzb-P1ekSe-OWXEXe-A9y3zc.VfPpkd-qNpTzb-P1ekSe-OWXEXe-OiiCO-IhfUye.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO-OiiCO-Xhs9z"
+    var flightListQuery = ".Rk10dc"
+    var flightQuery = ".pIav2d"
+    var clickableFlightQuery = ".OgQvJf.nKlB3b"
+    var dateLeftRightButtonsQuery = ".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-Bz112c-M1Soyc.LjDxcd.XhPA0b.LQeN7.Tmm8n"
+    
+    var fStopsQuery = ".BbR8Ec > .EfT7Ae.AdWm1c.tPgKwe > .ogfYpf"
+    var fTimeSetQuery = ".Ir0Voe > .zxVSec.YMlIz.tPgKwe.ogfYpf > .mv1WYe"
+    var fDepatureTimeQuery = "span > span > span"
+    var fArrivalTimeQuery = "span:nth-child(2) > span > span"
+    var fAirlineQuery = ".sSHqwe.tPgKwe.ogfYpf > span:nth-child(1)"
+    var fAirlineQuerySecondary = ".sSHqwe.tPgKwe.ogfYpf > span:nth-child(3)"
+    var fAirlineAvoidClassQuery = "ali83b" //Selected Flight....
+    var fTravelTimeQuery = ".Ak5kof > .gvkrdb.AdWm1c.tPgKwe.ogfYpf"
+    var fListedPriceQuery = ".U3gSDe > .BVAVmf.I11szd.POX3ye"
+
+    var priceListQuery = ".AnvSgb"
+    var priceListQuerySecondary = ".UUyzUc"
+    var pricesQuery = ".gN1nAc"
+    var priceSiteQuery = ".ogfYpf.AdWm1c"
+    var pricePriceQuery = ".IX8ct.YMlIz.Y4RJJ"
+
+}
+
 var currentDay
 var requiredDays
 
@@ -27,6 +55,9 @@ function fullScraperListener(request, sender, sendResponse) {
 
     currentDay = 0
     requiredDays = request.days - 1
+    if (requiredDays < 0) {
+        requiredDays = 0
+    }
 
     maxStops = request.stops
 
@@ -61,7 +92,7 @@ function finishedBuildData() {
 
 function startWithSet() {
 
-    let dates = document.querySelectorAll(".TP4Lpb.eoY5cb.j0Ppje")
+    let dates = document.querySelectorAll(datesQuery)
     let goDate = dates[0].value
     let backDate = dates[1].value
 
@@ -78,7 +109,7 @@ function waitToLoad(next) {
     // The weirdest but the only way to find out if google has finished loading
     let waitForLoading = true
     let interval = setInterval(() => {
-        let loadingBar = document.querySelector(".VfPpkd-qNpTzb-P1ekSe.VfPpkd-qNpTzb-P1ekSe-OWXEXe-A9y3zc.VfPpkd-qNpTzb-P1ekSe-OWXEXe-OiiCO-IhfUye.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO-OiiCO-Xhs9z")
+        let loadingBar = document.querySelector(loadingBarQuery)
         if (loadingBar == null) {
             console.log("Loading")
             waitForLoading = false
@@ -99,10 +130,10 @@ function waitToLoad(next) {
 
 function clickFlight(clickingNode, index) {
     console.log("Clicking Flight")
-    const flights = clickingNode.querySelectorAll(".pIav2d")
+    const flights = clickingNode.querySelectorAll(flightQuery)
 
     let flight = flights[index]
-    let fNode = flight.querySelector(".OgQvJf.nKlB3b")
+    let fNode = flight.querySelector(clickableFlightQuery)
 
     fNode.click()
 }
@@ -122,7 +153,7 @@ function nextDay() {
         return 1
     }
 
-    const buttons = document.querySelectorAll(".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-Bz112c-M1Soyc.LjDxcd.XhPA0b.LQeN7.Tmm8n")
+    const buttons = document.querySelectorAll(dateLeftRightButtonsQuery)
     if (isRoundTrip) {
         const fromRightBtn = buttons[1]
         fromRightBtn.click()
@@ -156,8 +187,8 @@ function proceedToFlight() {
 
 function readToFlight() {
     console.log("Read To Flight")
-    let listNode = document.querySelector(".Rk10dc")
-    const flights = listNode.querySelectorAll(".pIav2d")
+    const listNode = document.querySelector(flightListQuery)
+    const flights = listNode.querySelectorAll(flightQuery)
 
     let length = flights.length
     let index = data[currentKey].length
@@ -235,8 +266,8 @@ function readFromFlight() {
     }
 
     console.log("Read From Flight")
-    const listNode = document.querySelector(".Rk10dc")
-    const flights = listNode.querySelectorAll(".pIav2d")
+    const listNode = document.querySelector(flightListQuery)
+    const flights = listNode.querySelectorAll(flightQuery)
 
     let length = flights.length
     let index = currentToFlight.fromFlight.length
@@ -279,10 +310,10 @@ function readFlight(flightNodes, index) {
     let flight = flightNodes[index]
 
     var fDetail = {}
-    let fNode = flight.querySelector(".OgQvJf.nKlB3b")
+    let fNode = flight.querySelector(clickableFlightQuery)
 
     // Stops
-    let fStops = fNode.querySelector(".BbR8Ec > .EfT7Ae.AdWm1c.tPgKwe > .ogfYpf").textContent
+    let fStops = fNode.querySelector(fStopsQuery).textContent
     // If zero, skip nonstop stops
     if (maxStops == 0) {
         if (fStops != "Nonstop") {
@@ -304,22 +335,22 @@ function readFlight(flightNodes, index) {
     }
 
     // Departure arrival time
-    let fTimeSet = fNode.querySelector(".Ir0Voe > .zxVSec.YMlIz.tPgKwe.ogfYpf > .mv1WYe")
-    fDetail.departure = fTimeSet.querySelector("span > span > span").textContent
-    fDetail.arrivalTime = fTimeSet.querySelector("span:nth-child(2) > span > span").textContent
+    let fTimeSet = fNode.querySelector(fTimeSetQuery)
+    fDetail.departure = fTimeSet.querySelector(fDepatureTimeQuery).textContent
+    fDetail.arrivalTime = fTimeSet.querySelector(fArrivalTimeQuery).textContent
 
     // Airline
-    let airlineNode = fNode.querySelector(".sSHqwe.tPgKwe.ogfYpf > span:nth-child(1)")
-    if (airlineNode.classList.contains("ali83b")) {
-        airlineNode = fNode.querySelector(".sSHqwe.tPgKwe.ogfYpf > span:nth-child(3)")
+    let airlineNode = fNode.querySelector(fAirlineQuery)
+    if (airlineNode.classList.contains(fAirlineAvoidClassQuery)) {
+        airlineNode = fNode.querySelector(fAirlineQuerySecondary)
     }
     fDetail.airline = airlineNode.textContent
 
     // Timing
-    fDetail.travelTime = fNode.querySelector(".Ak5kof > .gvkrdb.AdWm1c.tPgKwe.ogfYpf").textContent
+    fDetail.travelTime = fNode.querySelector(fTravelTimeQuery).textContent
 
     // Listed Price
-    fDetail.listedPrice = fNode.querySelector(".U3gSDe > .BVAVmf.I11szd.POX3ye").textContent
+    fDetail.listedPrice = fNode.querySelector(fListedPriceQuery).textContent
 
     return fDetail
 }
@@ -328,16 +359,16 @@ function readPrices() {
     console.log("Reading Prices")
 
     var prices = []
-    let list = document.querySelector(".AnvSgb")
+    let list = document.querySelector(priceListQuery)
     if (!list) {
         // If the price list doesn't have the expandable, then it is in this different query
-        list = document.querySelector(".UUyzUc")
+        list = document.querySelector(priceListQuerySecondary)
     }
-    const priceNodes = list.querySelectorAll(".gN1nAc")
+    const priceNodes = list.querySelectorAll(pricesQuery)
     priceNodes.forEach((price) => {
         var pDetail = {}
-        pDetail.site = price.querySelector(".ogfYpf.AdWm1c").textContent.substring(10)
-        pDetail.price = price.querySelector(".IX8ct.YMlIz.Y4RJJ").textContent
+        pDetail.site = price.querySelector(priceSiteQuery).textContent.substring(10)
+        pDetail.price = price.querySelector(pricePriceQuery).textContent
         prices.push(pDetail)
     })
 
