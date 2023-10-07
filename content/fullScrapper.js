@@ -252,7 +252,7 @@ function nextDayAndRemove() {
         startWithSet()
     })
 
-    const buttons = document.querySelector(".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-Bz112c-M1Soyc.LjDxcd.XhPA0b.LQeN7.Tmm8n")
+    const buttons = document.querySelectorAll(".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-Bz112c-M1Soyc.LjDxcd.XhPA0b.LQeN7.Tmm8n")
     if (isRoundTrip) {
         const fromRightBtn = buttons[1]
         fromRightBtn.click()
