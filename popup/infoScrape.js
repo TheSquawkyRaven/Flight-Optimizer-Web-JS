@@ -29,6 +29,7 @@ function injectInfoScraper(tab) {
 function retrieveInfoScrapedData(response) {
 
 	if (response.error) {
+		disableScrape()
 		alert(response.error)
 		return
 	}
