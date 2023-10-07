@@ -7,6 +7,7 @@ function infoScraperListener(request, sender, sendResponse) {
         error: "Invalid Page. Please use https://www.google.com/travel/flights"
     }
 
+    // URL Check
     let url = window.location.href
     if (url.startsWith("https://www.google.com/travel/flights")) {
         error.error = "Please search for a flight first before using this"
@@ -19,6 +20,7 @@ function infoScraperListener(request, sender, sendResponse) {
         return
     }
 
+    // Trip General Info
     const types = document.querySelectorAll(".VfPpkd-uusGie-fmcmS")
     if (types == null) {
         sendResponse(error)
@@ -37,6 +39,7 @@ function infoScraperListener(request, sender, sendResponse) {
         return
     }
     
+    // Dates
     const dates = document.querySelectorAll(".TP4Lpb.eoY5cb.j0Ppje")
     if (dates == null) {
         sendResponse(error)
@@ -49,6 +52,7 @@ function infoScraperListener(request, sender, sendResponse) {
         return
     }
 
+    // Airports
     const airports = document.querySelectorAll(".II2One.j0Ppje.zmMKJ.LbIaRd")
     if (airports == null) {
         sendResponse(error)
@@ -61,6 +65,7 @@ function infoScraperListener(request, sender, sendResponse) {
         return
     }
 
+    // Flight title check (Departing/Returning flights)
     const flightTitle = document.querySelector(".zBTtmb.ZSxxwc")
     if (flightTitle == null) {
         sendResponse(error)
@@ -71,6 +76,7 @@ function infoScraperListener(request, sender, sendResponse) {
         sendResponse(error)
         return
     }
+    // "Departing flights" or "Best departing flights" only
     if (!title.includes("eparting")) {
         error.error = "You must be in the Departing Flights page, not the Returning Flights page"
         sendResponse(error)
