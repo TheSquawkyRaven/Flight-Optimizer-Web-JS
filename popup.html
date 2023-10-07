@@ -9,85 +9,110 @@
 
 <body>
 
-	<h1>Flight Optimzer</h1>
+	<h1 class="text-2xl mx-16 my-4 whitespace-nowrap font-bold">Flight Optimizer</h1>
 
-	<div id="basic-info">
-		<div>
-			<p>
-				Basic Info
-			</p>
-		</div>
-		<div class="flex gap-2">
+	<div class="m-2 p-2 border-2">
+
+
+		<div id="basic-info" class="my-2">
 			<div>
-				<p id="trip-type">
-					
+				<p class="text-lg font-medium text-center">
+					Basic Info
+				</p>
+			</div>
+			<div class="flex gap-2 items-center justify-center mx-auto">
+				<div>
+					<p class="whitespace-nowrap" id="trip-type">
+						[Trip Type]
+					</p>
+				</div>
+				<div>
+					<p class="whitespace-nowrap" id="adults">
+						[Adults]
+					</p>
+				</div>
+				<div>
+					<p class="whitespace-nowrap" id="flight-type">
+						[Flight Type]
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="current-info" class="my-2">
+			<div>
+				<p class="text-lg font-medium text-center">
+					Flight Info
 				</p>
 			</div>
 			<div>
-				<p id="adults">
-					
+				<div class="flex gap-2 items-center justify-center">
+					<p id="from-airport">
+						[From Airport]
+					</p>
+					<p>-</p>
+					<p id="to-airport">
+						[To Airport]
+					</p>
+				</div>
+				<div class="flex gap-2 items-center justify-center">
+					<p id="go-date">
+						[Depart Date]
+					</p>
+					<p>-</p>
+					<p id="back-date">
+						[Round Trip Return Date]
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="my-2">
+			<div>
+				<p class="text-lg font-medium text-center">
+					Scraping
+				</p>
+			</div>
+			<div id="settings">
+				<div class="my-1 flex gap-x-2 items-center justify-center">
+					<p>
+						Days To Check:
+					</p>
+					<input id="days" type="number" class="border" value="0">
+				</div>
+			</div>
+			<div class="my-1 flex items-center justify-center">
+				<button id="start-scrape" class="border-2">
+					Start Scrape
+				</button>
+			</div>
+			<div class="my-1 flex items-center justify-center">
+				<textarea id="scraped-data" class="border" readonly></textarea>
+			</div>
+		</div>
+
+		<div class="my-2">
+			<div>
+				<p class="text-lg font-medium text-center">
+					Data Conversion
 				</p>
 			</div>
 			<div>
-				<p id="flight-type">
-					
-				</p>
+				<div class="my-1 flex gap-x-1 items-center justify-center">
+					<label>
+						Flatten:
+					</label>
+					<input id="flatten-csv" type="checkbox">
+				</div>
+				<div class="my-1 flex items-center justify-center">
+					<button id="convert-data" class="border-2">
+						Convert to CSV
+					</button>
+				</div>
+				<div class="my-1 flex items-center justify-center">
+					<textarea id="converted-csv" class="border" readonly></textarea>
+				</div>
 			</div>
-		</div>
-	</div>
-
-	<div id="current-info">
-		<div>
-			<p>
-				Flight Info
-			</p>
-		</div>
-		<div>
-			<div class="flex gap-2">
-				<p id="from-airport">
-
-				</p>
-				<p>-</p>
-				<p id="to-airport">
-
-				</p>
-			</div>
-			<div class="flex gap-2">
-				<p id="go-date">
-					
-				</p>
-				<p>-</p>
-				<p id="back-date">
-
-				</p>
-			</div>
-		</div>
-	</div>
-
-	<div>
-		<div id="settings">
-			<div class="flex">
-				<p>
-					Days:
-				</p>
-				<input id="days" type="number" class="border">
-			</div>
-		</div>
-		<button id="start-scrape" class="border-2">
-			Start Scrape
-		</button>
-		<div>
-			<textarea id="scrape-converted-csv" readonly></textarea>
-		</div>
-	</div>
-
-	<div>
-		<div>
-			Flatten: <input id="flatten-csv" type="checkbox">
-			<button id="convert-data" class="border-2">
-				Convert Dat to CSV
-			</button>
-			<textarea id="converted-csv" readonly></textarea>
 		</div>
 	</div>
 
