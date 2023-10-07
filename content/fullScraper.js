@@ -15,7 +15,7 @@ if (fullScraper_constants === undefined) {
     var fArrivalTimeQuery = "span:nth-child(2) > span > span"
     var fAirlineQuery = ".sSHqwe.tPgKwe.ogfYpf > span:nth-child(1)"
     var fAirlineQuerySecondary = ".sSHqwe.tPgKwe.ogfYpf > span:nth-child(3)"
-    var fAirlineAvoidClassQuery = "ali83b" //Selected Flight....
+    var fAirlineAvoidClassQuery = "ali83b" //Separate tickets.... (skip)
     var fTravelTimeQuery = ".Ak5kof > .gvkrdb.AdWm1c.tPgKwe.ogfYpf"
     var fListedPriceQuery = ".U3gSDe > .BVAVmf.I11szd.POX3ye"
 
@@ -25,33 +25,50 @@ if (fullScraper_constants === undefined) {
     var priceSiteQuery = ".ogfYpf.AdWm1c"
     var pricePriceQuery = ".IX8ct.YMlIz.Y4RJJ"
 
+
+    var currentDay
+    var requiredDays
+    
+    var maxStops
+    
+    var scrapedInfo
+    var isRoundTrip
+    var isOneWay
+    
+    var data
+    var builtData
+    var currentKey
+    var currentToFlight
+    var currentFromFlight
+
+    var completed
+    var forceStop = false
+
 }
-
-var currentDay
-var requiredDays
-
-var maxStops
-
-var scrapedInfo
-var isRoundTrip
-var isOneWay
-
-var data = {}
-var builtData = {}
-var currentKey
-var currentToFlight
-var currentFromFlight
-
-var completed = false
+else {
+    if (!completed) {
+        alert("Scraping is not completed. If the scraper has stuck, please refresh the page before scraping again. Otherwise wait for the previous scraper to finish its job fist before scraping again")
+        forceStop = true
+    }
+}
 
 function fullScraperListener(request, sender, sendResponse) {
     chrome.runtime.onMessage.removeListener(fullScraperListener)
+
+    if (forceStop) {
+        return
+    }
 
     if (!request.scrape) {
         return
     }
 
+    // START SCRAPING
     console.warn("START SCRAPING")
+
+    data = {}
+    completed = false
+    forceStop = false
 
     currentDay = 0
     requiredDays = request.days - 1
@@ -60,9 +77,7 @@ function fullScraperListener(request, sender, sendResponse) {
     }
 
     maxStops = request.stops
-
     scrapedInfo = request.scrapedInfo
-    console.log(scrapedInfo)
 
     isRoundTrip = scrapedInfo.tripType == "Round trip"
     isOneWay = scrapedInfo.tripType == "One way"
@@ -87,6 +102,7 @@ function finishedBuildData() {
 
     console.log(builtData)
     completed = true
+    forceStop = false
 }
 
 
