@@ -1,15 +1,24 @@
 
-// const fromLeftBtn = document.querySelector("#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div.PSZ8D.EA71Tc > div.Ep1EJd > div > div.rIZzse > div.bgJkKe.K0Tsu > div > div > div.cQnuXe.k0gFV > div > div > div:nth-child(1) > div > div.oSuIZ.YICvqf.kStSsc.ieVaIb > div > div.Z4JKhb.CKPWLe.wW6ySd.W3yZgb > button")
-// const toLeftBtn = document.querySelector("#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div.PSZ8D.EA71Tc > div.Ep1EJd > div > div.rIZzse > div.bgJkKe.K0Tsu > div > div > div.cQnuXe.k0gFV > div > div > div:nth-child(1) > div > div.oSuIZ.YICvqf.lJODHb.qXDC9e > div > div.Z4JKhb.CKPWLe.wW6ySd.W3yZgb > button")
+const flightListNodeQuery = ".Rk10dc"
+const priceListNodeQuery = ".AnvSgb"
+// If the price list doesn't have the expandable, then it in this different query
+const priceListNodeQuery2 = ".UUyzUc"
 
-const flightListNodeQuery = "#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div.PSZ8D.EA71Tc > div.FXkZv > div:nth-child(4) > ul"
-const priceListNodeQuery = "#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div > div.SDUAh.Xag90b.jtr7Nd > div.OLfz3c > div:nth-child(4) > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div.RvrZge > div.q0q6Ub.RbR6Df > div:nth-child(1) > div"
-const priceListNodeQuery2 = "#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div > div.SDUAh.Xag90b.jtr7Nd > div.OLfz3c > div:nth-child(4) > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div.RvrZge > div.UUyzUc"
+const roundTripText = "Round trip"
+const oneWayText = "One way"
+
 
 var currentDay
 var requiredDays
 
+var maxStops
+
+var scrappedInfo
+var isRoundTrip
+var isOneWay
+
 var data = {}
+var builtData = {}
 var currentKey
 var currentToFlight
 var currentFromFlight
@@ -27,17 +36,43 @@ function fullScrapperListener(request, sender, sendResponse) {
     currentDay = 0
     requiredDays = request.days - 1
 
+    maxStops = request.stops
+
+    scrappedInfo = request.scrappedInfo
+    console.log(scrappedInfo)
+
+    isRoundTrip = scrappedInfo.tripType == roundTripText
+    isOneWay = scrappedInfo.tripType == oneWayText
+    if (!isRoundTrip && !isOneWay) {
+        alert("Trip Type: " + scrappedInfo.tripType + " is not supported!")
+        return
+    }
+
     startWithSet()
     proceedToFlight()
 }
 
 
+function finishedBuildData() {
+    builtData = {}
+    console.warn("Finished Successfully!")
+    builtData.result = data
+    builtData.days = requiredDays
+    builtData.maxStops = maxStops
+    builtData.scrappedInfo = scrappedInfo
+
+    console.log(builtData)
+    completed = true
+}
+
+
 function startWithSet() {
 
-    let goDate = document.querySelector("#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div.PSZ8D.EA71Tc > div.Ep1EJd > div > div.rIZzse > div.bgJkKe.K0Tsu > div > div > div.cQnuXe.k0gFV > div > div > div:nth-child(1) > div > div.oSuIZ.YICvqf.kStSsc.ieVaIb > div > input").value
-    let backDate = document.querySelector("#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div.PSZ8D.EA71Tc > div.Ep1EJd > div > div.rIZzse > div.bgJkKe.K0Tsu > div > div > div.cQnuXe.k0gFV > div > div > div:nth-child(1) > div > div.oSuIZ.YICvqf.lJODHb.qXDC9e > div > input").value
+    let dates = document.querySelectorAll(".TP4Lpb.eoY5cb.j0Ppje")
+    let goDate = dates[0].value
+    let backDate = dates[1].value
 
-    let key = `${goDate}_${backDate}`.replace(/\s/g, "").replaceAll(",", "");
+    let key = `${goDate}_${backDate}`.replace(/\s/g, "").replaceAll(",", "")
     console.log(key)
     currentKey = key
 
@@ -60,26 +95,96 @@ function waitToLoad(isDoneFunc, next) {
     }, 250)
 }
 
-function waitFlightToLoad(next) {
-    let requests = 0
+function waitFlightToLoad(isDepart, next) {
+    let skippedFirstCheck = false
     waitToLoad(() => {
-        let container = document.querySelector("#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div.PSZ8D.EA71Tc > div.FXkZv > div:nth-child(4)")
+        let container = document.querySelector(flightListNodeQuery)
         if (container) {
+            container = container.parentNode
             let h3 = container.querySelector(":scope > h3")
             if (h3) {
-                console.log(h3.textContent)
-                if (h3.textContent == "Best returning flights" || h3.textContent == "Best departing flights") {
-                    let nodes = container.querySelector(":scope > ul")
-                    if (nodes) {
-                        if (nodes.childElementCount > 0) {
-                            return true
+                let text = h3.textContent
+                if (isOneWay) {
+                    //Expected: "Best flights", "Other flights", "Flights"
+                    if (text == "Best flights") {
+                        // Skipping first check to prevent redraw on load
+                        if (!skippedFirstCheck) {
+                            skippedFirstCheck = true
+                            return false
                         }
+                        return true
+                    }
+                    else if (text == "Other flights") {
+                        // If "other" exists, then only the "best" should be used
+                        return false
+                    }
+                    else if (text == "Flights") {
+                        // Skipping first check to prevent redraw on load (No "best" nor "other")
+                        if (!skippedFirstCheck) {
+                            skippedFirstCheck = true
+                            return false
+                        }
+                        return true
+                    }
+                    else {
+                        console.error("Unkown text to handle - " + text)
+                        return false
                     }
                 }
-                if (requests > 1) {
-                    return true
+                if (isDepart) {
+                    //Expected: "Best departing flights", "Other departing flights", "Departing flights"
+                    if (text == "Best departing flights") {
+                        // Skipping first check to prevent redraw on load
+                        if (!skippedFirstCheck) {
+                            skippedFirstCheck = true
+                            return false
+                        }
+                        return true
+                    }
+                    else if (text == "Other departing flights") {
+                        // If "other" exists, then only the "best" should be used
+                        return false
+                    }
+                    else if (text == "Departing flights") {
+                        // Skipping first check to prevent redraw on load (No "best" nor "other")
+                        if (!skippedFirstCheck) {
+                            skippedFirstCheck = true
+                            return false
+                        }
+                        return true
+                    }
+                    else {
+                        console.error("Unkown text to handle - " + text)
+                        return false
+                    }
                 }
-                requests++
+                else {
+                    //Expected: "Best returning flights", "Other returning flights", "Returning flights"
+                    if (text == "Best returning flights") {
+                        // Skipping first check to prevent redraw on load
+                        if (!skippedFirstCheck) {
+                            skippedFirstCheck = true
+                            return false
+                        }
+                        return true
+                    }
+                    else if (text == "Other returning flights") {
+                        // If "other" exists, then only the "best" should be used
+                        return false
+                    }
+                    else if (text == "Returning flights") {
+                        // Skipping first check to prevent redraw on load (No "best" nor "other")
+                        if (!skippedFirstCheck) {
+                            skippedFirstCheck = true
+                            return false
+                        }
+                        return true
+                    }
+                    else {
+                        console.error("Unkown text to handle - " + text)
+                        return false
+                    }
+                }
             }
         }
         return false
@@ -90,6 +195,7 @@ function waitPriceToLoad(next) {
     waitToLoad(() => {
         let container = document.querySelector(priceListNodeQuery)
         if (!container) {
+            // If the price list doesn't have the expandable, then it in this different query
             container = document.querySelector(priceListNodeQuery2)
         }
         if (container) {
@@ -99,50 +205,67 @@ function waitPriceToLoad(next) {
     }, next)
 }
 
-function clickFlightAndRemove(node, index) {
+function clickFlightAndRemove(clickingNode, index) {
     console.log("Clicking Flight")
-    const flights = node.querySelectorAll(".pIav2d")
+    const flights = clickingNode.querySelectorAll(".pIav2d")
 
     let flight = flights[index]
     let fNode = flight.querySelector(".OgQvJf.nKlB3b")
 
+    removeFlightList()
     fNode.click()
-    setTimeout(() => {
-        node.remove()
-    }, 10)
 }
 
-function backAndRemove(node) {
-    console.log("Going Back")
-    history.back()
+function removeFlightList(next) {
+
+    let removingChildNodes = document.querySelectorAll(flightListNodeQuery)
     setTimeout(() => {
-        if (node) {
-            node.remove()
+        removingChildNodes.forEach((removingChildNode) => {
+            removingChildNode.parentNode.remove()
+        })
+        if (next) {
+            next()
         }
     }, 10)
 }
 
-function nextDayAndRemove(node) {
+function backAndRemove(removeNode) {
+    console.log("Going Back")
+
+    if (removeNode) {
+        removeFlightList()
+    }
+
+    history.back()
+}
+
+function nextDayAndRemove() {
     console.log("Next Day")
 
     currentDay++
     if (currentDay > requiredDays) {
-        console.log("Finished All Required Days!")
-        console.log(data)
-        completed = true
+        finishedBuildData()
         return 1
     }
 
-    const fromRightBtn = document.querySelector("#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div.PSZ8D.EA71Tc > div.Ep1EJd > div > div.rIZzse > div.bgJkKe.K0Tsu > div > div > div.cQnuXe.k0gFV > div > div > div:nth-child(1) > div > div.oSuIZ.YICvqf.kStSsc.ieVaIb > div > div.Z4JKhb.CKPWLe.HDVC8.Xbfhhd > button")
-    const toRightBtn = document.querySelector("#yDmH0d > c-wiz.zQTmif.SSPGKf > div > div:nth-child(2) > c-wiz > div.cKvRXe > c-wiz > div.PSZ8D.EA71Tc > div.Ep1EJd > div > div.rIZzse > div.bgJkKe.K0Tsu > div > div > div.cQnuXe.k0gFV > div > div > div:nth-child(1) > div > div.oSuIZ.YICvqf.lJODHb.qXDC9e > div > div.Z4JKhb.CKPWLe.HDVC8.Xbfhhd > button")
-    fromRightBtn.click()
-    toRightBtn.click()
+    removeFlightList(() => {
+        startWithSet()
+    })
+
+    const buttons = document.querySelector(".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-Bz112c-M1Soyc.LjDxcd.XhPA0b.LQeN7.Tmm8n")
+    if (isRoundTrip) {
+        const fromRightBtn = buttons[1]
+        fromRightBtn.click()
+    
+        const toRightBtn = buttons[3]
+        toRightBtn.click()
+    }
+    else if (isOneWay) {
+        const fromRightBtn = buttons[1]
+        fromRightBtn.click()
+    }
 
     console.log("Next Day Clicked")
-    setTimeout(() => {
-        startWithSet()
-        node.remove()
-    }, 10)
 }
 
 
@@ -151,9 +274,9 @@ function nextDayAndRemove(node) {
 function proceedToFlight() {
     let result = readToFlight()
     if (result == 1) {
-        let result = nextDayAndRemove(document.querySelector(flightListNodeQuery))
+        let result = nextDayAndRemove()
         if (result != 1) {
-            waitFlightToLoad(() => {
+            waitFlightToLoad(true, () => {
                 proceedToFlight()
             })
         }
@@ -163,12 +286,6 @@ function proceedToFlight() {
 function readToFlight() {
     console.log("Read To Flight")
     let listNode = document.querySelector(flightListNodeQuery)
-    if (listNode == null) {
-        console.log(flightListNodeQuery)
-        console.log(listNode)
-        listNode = document.querySelector(flightListNodeQuery)
-        console.log(listNode)
-    }
     const flights = listNode.querySelectorAll(".pIav2d")
 
     let length = flights.length
@@ -179,13 +296,35 @@ function readToFlight() {
         let skip = toFlight.skip
         data[currentKey].push(toFlight)
         currentToFlight = toFlight
-        currentToFlight.fromFlight = []
+        if (isRoundTrip) {
+            currentToFlight.fromFlight = []
+        }
+        else if (isOneWay) {
+
+        }
 
         if (!skip) {
-            clickFlightAndRemove(listNode, index)
-            waitFlightToLoad(() => {
-                proceedFromFlight()
-            })
+            clickFlightAndRemove(listNode.parentNode, index)
+
+            if (isRoundTrip) {
+                // Load returning flights
+                waitFlightToLoad(false, () => {
+                    proceedFromFlight()
+                })
+            }
+            else if (isOneWay) {
+                // Load price instantly
+                console.log("Prepare to Load Price")
+                waitPriceToLoad(() => {
+                    currentToFlight.prices = readPrices()
+                    backAndRemove()
+                    waitFlightToLoad(false, () => {
+                        proceedToFlight()
+                    })
+                })
+            }
+
+
         }
         else {
             console.log("Skipped")
@@ -204,16 +343,26 @@ function readToFlight() {
 
 
 function proceedFromFlight() {
+    if (isOneWay) {
+        console.error("One Way does not have a return flight!")
+        return
+    }
+
     let result = readFromFlight()
     if (result == 1) {
-        backAndRemove(document.querySelector(flightListNodeQuery))
-        waitFlightToLoad(() => {
+        backAndRemove(true)
+        waitFlightToLoad(true, () => {
             proceedToFlight()
         })
     }
 }
 
 function readFromFlight() {
+    if (isOneWay) {
+        console.error("One Way does not have a return flight!")
+        return
+    }
+
     console.log("Read From Flight")
     const listNode = document.querySelector(flightListNodeQuery)
     const flights = listNode.querySelectorAll(".pIav2d")
@@ -228,12 +377,12 @@ function readFromFlight() {
         currentFromFlight = fromFlight
 
         if (!skip) {
-            clickFlightAndRemove(listNode, index)
+            clickFlightAndRemove(listNode.parentNode, index)
             console.log("Prepare to Load Price")
             waitPriceToLoad(() => {
                 currentFromFlight.prices = readPrices()
                 backAndRemove()
-                waitFlightToLoad(() => {
+                waitFlightToLoad(false, () => {
                     proceedFromFlight()
                 })
             })
@@ -261,23 +410,44 @@ function readFlight(flightNodes, index) {
     var fDetail = {}
     let fNode = flight.querySelector(".OgQvJf.nKlB3b")
 
-    let fStops = fNode.querySelector(".BbR8Ec > .EfT7Ae.AdWm1c.tPgKwe").textContent
-    if (fStops != "Nonstop") {
-        return {
-            skip: true
+    // Stops
+    let fStops = fNode.querySelector(".BbR8Ec > .EfT7Ae.AdWm1c.tPgKwe > .ogfYpf").textContent
+    // If zero, skip nonstop stops
+    if (maxStops == 0) {
+        if (fStops != "Nonstop") {
+            return {
+                skip: true
+            }
         }
     }
     fDetail.stops = fStops
+    if (fStops != "Nonstop") {
+        // Convert stops to int to compare
+        let fStopsInt = parseInt(fStops.replace(/[^0-9]/g, ""))
+        if (fStopsInt > maxStops) {
+            return {
+                skip: true
+            }
+        }
+        fDetail.stops = fStopsInt
+    }
 
-
+    // Departure arrival time
     let fTimeSet = fNode.querySelector(".Ir0Voe > .zxVSec.YMlIz.tPgKwe.ogfYpf > .mv1WYe")
     fDetail.departure = fTimeSet.querySelector("span > span > span").textContent
     fDetail.arrivalTime = fTimeSet.querySelector("span:nth-child(2) > span > span").textContent
 
-    fDetail.airline = fNode.querySelector(".sSHqwe.tPgKwe.ogfYpf > span:nth-child(1)").textContent
+    // Airline
+    let airlineNode = fNode.querySelector(".sSHqwe.tPgKwe.ogfYpf > span:nth-child(1)")
+    if (airlineNode.classList.contains("ali83b")) {
+        airlineNode = fNode.querySelector(".sSHqwe.tPgKwe.ogfYpf > span:nth-child(3)")
+    }
+    fDetail.airline = airlineNode.textContent
 
+    // Timing
     fDetail.travelTime = fNode.querySelector(".Ak5kof > .gvkrdb.AdWm1c.tPgKwe.ogfYpf").textContent
 
+    // Listed Price
     fDetail.listedPrice = fNode.querySelector(".U3gSDe > .BVAVmf.I11szd.POX3ye").textContent
 
     return fDetail
@@ -289,6 +459,7 @@ function readPrices() {
     var prices = []
     let list = document.querySelector(priceListNodeQuery)
     if (!list) {
+        // If the price list doesn't have the expandable, then it in this different query
         list = document.querySelector(priceListNodeQuery2)
     }
     const priceNodes = list.querySelectorAll(".gN1nAc")

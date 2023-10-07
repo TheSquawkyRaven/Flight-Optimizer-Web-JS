@@ -16,7 +16,7 @@ function completionListener(request, sender, sendResponse) {
     else {
         let response = {
             completed: true,
-            data: data
+            data: builtData
         }
         sendResponse(response)
     }

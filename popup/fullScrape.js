@@ -1,25 +1,42 @@
 
 
 const startScrapeButton = document.querySelector("#start-scrape")
+const tryRetrieveButton = document.querySelector("#try-retrieve")
 const daysInput = document.querySelector("#days")
+const stopsInput = document.querySelector("#stops")
 
 function startScrape() {
 	let days = parseInt(daysInput.value)
 	if (days == NaN || days < 0) {
+        alert("Days must be 0 or positive, not " + String(days))
 		return
 	}
+    let stops = parseInt(stopsInput.value)
+    if (stops == NaN || stops < 0) {
+        alert("Stops must be 0 or positive, not " + String(days))
+        return
+    }
 
     chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-        injectFullScrapper(tabs[0], days)
+        injectFullScrapper(tabs[0], days, stops, scrappedInfo)
     })
 	
 }
 
+function tryRetrieve() {
+    
+    chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+        testFinishScraping(tabs[0])
+    })
+
+}
+
 startScrapeButton.addEventListener('click', startScrape)
+tryRetrieveButton.addEventListener('click', tryRetrieve)
 
 var intervalTest
 
-function injectFullScrapper(tab, days) {
+function injectFullScrapper(tab, days, stops, scrappedInfo) {
 	chrome.scripting.executeScript({
 		target: { tabId: tab.id },
 		files: ["content/fullScrapper.js"],
@@ -27,6 +44,8 @@ function injectFullScrapper(tab, days) {
 		chrome.tabs.sendMessage(tab.id, {
             scrape: true,
             days: days,
+            stops: stops,
+            scrappedInfo: scrappedInfo,
         }, () => {})
 	})
 
@@ -57,7 +76,8 @@ function tryRetrieveScrappedData(response) {
 
         let data = response.data
         console.log(data)
-        document.querySelector("#scraped-data").textContent = data
+        document.querySelector("#scraped-data").textContent = JSON.stringify(data)
+        dat = data
         processDat(data)
 
     }

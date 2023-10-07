@@ -1,51 +1,36 @@
 
-var csvHeader = `ID, Date To Destination, Date From Destination, To Airline, To Departure, To Arrival, To Listed Price, From Airline, From Departure, From Arrival, From Listed Price`
+const roundTripText = "Round trip"
+const oneWayText = "One way"
+
+const csvHeaderPreset = `ID, Date To Destination, Date From Destination, To Airline, To Departure, To Arrival, To Listed Price, From Airline, From Departure, From Arrival, From Listed Price`
+var csvHeader = ""
 var csvContent = ""
 var csv = ""
 
-let purchaseSites = {}
-let purchaseOrder = []
-
-function processDat(dat) {
+function processDat(data) {
 
     let flatten = document.querySelector("#flatten-csv").checked
 
+    let result = data.result
+    let isRoundTrip = data.scrappedInfo.tripType == roundTripText
+    let isOneWay = data.scrappedInfo.tripType == oneWayText
 
-    purchaseSites = {}
+    csvHeader = csvHeaderPreset
+    csvContent = ""
+    csv = ""
 
-    for (let key in dat) {
-        let roundDates = dat[key]
-        roundDates.forEach((toFlight) => {
-            if (toFlight.skip == 1) {
-                return
-            }
-            toFlight.fromFlight.forEach((fromFlight) => {
-                if (fromFlight.skip == 1) {
-                    return
-                }
-                fromFlight.prices.forEach((price) => {
-                    purchaseSites[price.site] = 1
-                })
-            })
-        })
-    }
+    let purchaseSites = {}
+    let purchaseOrder = []
 
-    resetPurchaseSites()
+    findAllPriceSites(result, isRoundTrip, isOneWay, purchaseSites)
 
-    if (!flatten) {
-        purchaseOrder = []
-        for (let key in purchaseSites) {
-            purchaseOrder.push(key)
-            csvHeader += `, ${key.replaceAll(",", " ")}`
-        }
-    }
-    else {
-        csvHeader += `, Purchase Site, Price`
-    }
+    resetPurchaseSites(purchaseSites)
+
+    fillHeader(isRoundTrip, isOneWay, purchaseSites, purchaseOrder, flatten)
 
 
-    for (let key in dat) {
-        let roundDates = dat[key]
+    for (let key in result) {
+        let roundDates = result[key]
         let dates = key.split("_")
         let departureDate = dates[0].substring(3)
         let roundReturnDate = dates[1].substring(3)
@@ -54,35 +39,45 @@ function processDat(dat) {
                 return
             }
 
-            toFlight.fromFlight.forEach((fromFlight) => {
-                if (fromFlight.skip == 1) {
-                    return
-                }
-                resetPurchaseSites()
+            let departureInfo = `, ${toFlight.airline}, ${toFlight.departure}, ${toFlight.arrivalTime}, ${toFlight.listedPrice.replace(/[^0-9]/g, "")}`.replaceAll("+1", "").replaceAll("+2", "")
 
+            if (isRoundTrip) {
                 let basicInfo = `${key}, ${departureDate}, ${roundReturnDate}`
-                let departureInfo = `, ${toFlight.airline}, ${toFlight.departure}, ${toFlight.arrivalTime}, ${toFlight.listedPrice.replace(/[^0-9]/g, "")}`.replaceAll("+1", "")
-                let roundReturnInfo = `, ${fromFlight.airline}, ${fromFlight.departure}, ${fromFlight.arrivalTime}, ${fromFlight.listedPrice.replace(/[^0-9]/g, "")}`.replaceAll("+1", "")
 
+                toFlight.fromFlight.forEach((fromFlight) => {
+                    if (fromFlight.skip == 1) {
+                        return
+                    }
+                    resetPurchaseSites(purchaseSites)
+
+                    let roundReturnInfo = `, ${fromFlight.airline}, ${fromFlight.departure}, ${fromFlight.arrivalTime}, ${fromFlight.listedPrice.replace(/[^0-9]/g, "")}`.replaceAll("+1", "").replaceAll("+2", "")
+
+                    let priceInfo = retrievePrice(fromFlight, purchaseSites, purchaseOrder, flatten)
+                    if (!flatten) {
+                        csvContent += `${basicInfo}${departureInfo}${roundReturnInfo}${priceInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+                    }
+                    else {
+                        priceInfo.forEach((pInfo) => {
+                            csvContent += `${basicInfo}${departureInfo}${roundReturnInfo}${pInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+                        })
+                    }
+                })
+            }
+            else if (isOneWay) {
+                let basicInfo = `${key}, ${departureDate}`
+
+                resetPurchaseSites(purchaseSites)
+                
+                let priceInfo = retrievePrice(toFlight, purchaseSites, purchaseOrder, flatten)
                 if (!flatten) {
-                    fromFlight.prices.forEach((price) => {
-                        purchaseSites[price.site] = price.price
-                    })
-                    let lowerRow = ""
-                    purchaseOrder.forEach((order) => {
-                        lowerRow += `, "${String(purchaseSites[order]).replace(/[^0-9]/g, "")}"`
-                    })
-
-                    let priceInfo = `${lowerRow}`.replaceAll("+1", "").replace(/[^a-zA-Z ,0-9:.\n]/g, "")
-                    csvContent += `${basicInfo}${departureInfo}${roundReturnInfo}${priceInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+                    csvContent += `${basicInfo}${departureInfo}${priceInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
                 }
                 else {
-                    fromFlight.prices.forEach((price) => {
-                        let priceInfo = `, ${price.site.replaceAll(",", " ")}, ${price.price.replace(/[^0-9]/g, "")}`
-                        csvContent += `${basicInfo}${departureInfo}${roundReturnInfo}${priceInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+                    priceInfo.forEach((pInfo) => {
+                        csvContent += `${basicInfo}${departureInfo}${pInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
                     })
                 }
-            })
+            }
         })
     }
 
@@ -93,15 +88,86 @@ function processDat(dat) {
 
 }
 
-function resetPurchaseSites() {
+
+function findAllPriceSites(result, isRoundTrip, isOneWay, purchaseSites) {
+
+    for (let key in result) {
+        let roundDates = result[key]
+        roundDates.forEach((toFlight) => {
+            if (toFlight.skip == 1) {
+                return
+            }
+            // Round Trip
+            if (isRoundTrip) {
+                toFlight.fromFlight.forEach((fromFlight) => {
+                    if (fromFlight.skip == 1) {
+                        return
+                    }
+                    fromFlight.prices.forEach((price) => {
+                        purchaseSites[price.site] = 1
+                    })
+                })
+            }
+            // One Way
+            else if (isOneWay) {
+                toFlight.prices.forEach((price) => {
+                    purchaseSites[price.site] = 1
+                })
+            }
+        })
+    }
+}
+
+
+function fillHeader(isRoundTrip, isOneWay, purchaseSites, purchaseOrder, flatten) {
+    if (!flatten) {
+        for (let key in purchaseSites) {
+            purchaseOrder.push(key)
+            csvHeader += `, ${key.replaceAll(",", " ")}`
+        }
+    }
+    else {
+        csvHeader += `, Purchase Site, Price`
+    }
+    if (isRoundTrip) {
+
+    }
+    else if (isOneWay) {
+        csvHeader = csvHeader.replace(", Date From Destination", "")
+    }
+}
+
+
+function retrievePrice(container, purchaseSites, purchaseOrder, flatten) {
+
+    if (!flatten) {
+        container.prices.forEach((price) => {
+            purchaseSites[price.site] = price.price
+        })
+        let lowerRow = ""
+        purchaseOrder.forEach((order) => {
+            lowerRow += `, "${String(purchaseSites[order]).replace(/[^0-9]/g, "")}"`
+        })
+
+        let priceInfo = `${lowerRow}`.replaceAll("+1", "").replaceAll("+2", "").replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+        return priceInfo
+    }
+    else {
+        let priceInfos = []
+        container.prices.forEach((price) => {
+            let priceInfo = `, ${price.site.replaceAll(",", " ")}, ${price.price.replace(/[^0-9]/g, "")}`
+            priceInfos.push(priceInfo)
+        })
+        return priceInfos
+    }
+}
+
+function resetPurchaseSites(purchaseSites) {
     for (let key in purchaseSites) {
         purchaseSites[key] = ''
     }
 }
 
-
-if (dat !== undefined) {
-    document.querySelector("#convert-data").addEventListener('click', () => {
-        processDat(dat)
-    })
-}
+document.querySelector("#convert-data").addEventListener('click', () => {
+    processDat(dat)
+})
