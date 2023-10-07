@@ -1,13 +1,4 @@
 
-const flightListNodeQuery = ".Rk10dc"
-const priceListNodeQuery = ".AnvSgb"
-// If the price list doesn't have the expandable, then it is in this different query
-const priceListNodeQuery2 = ".UUyzUc"
-
-const roundTripText = "Round trip"
-const oneWayText = "One way"
-
-
 var currentDay
 var requiredDays
 
@@ -26,6 +17,7 @@ var currentFromFlight
 var completed = false
 
 function fullScraperListener(request, sender, sendResponse) {
+    chrome.runtime.onMessage.removeListener(fullScraperListener)
 
     if (!request.scrape) {
         return
@@ -41,8 +33,8 @@ function fullScraperListener(request, sender, sendResponse) {
     scrapedInfo = request.scrapedInfo
     console.log(scrapedInfo)
 
-    isRoundTrip = scrapedInfo.tripType == roundTripText
-    isOneWay = scrapedInfo.tripType == oneWayText
+    isRoundTrip = scrapedInfo.tripType == "Round trip"
+    isOneWay = scrapedInfo.tripType == "One way"
     if (!isRoundTrip && !isOneWay) {
         alert("Trip Type: " + scrapedInfo.tripType + " is not supported!")
         return
@@ -164,7 +156,7 @@ function proceedToFlight() {
 
 function readToFlight() {
     console.log("Read To Flight")
-    let listNode = document.querySelector(flightListNodeQuery)
+    let listNode = document.querySelector(".Rk10dc")
     const flights = listNode.querySelectorAll(".pIav2d")
 
     let length = flights.length
@@ -243,7 +235,7 @@ function readFromFlight() {
     }
 
     console.log("Read From Flight")
-    const listNode = document.querySelector(flightListNodeQuery)
+    const listNode = document.querySelector(".Rk10dc")
     const flights = listNode.querySelectorAll(".pIav2d")
 
     let length = flights.length
@@ -336,10 +328,10 @@ function readPrices() {
     console.log("Reading Prices")
 
     var prices = []
-    let list = document.querySelector(priceListNodeQuery)
+    let list = document.querySelector(".AnvSgb")
     if (!list) {
         // If the price list doesn't have the expandable, then it is in this different query
-        list = document.querySelector(priceListNodeQuery2)
+        list = document.querySelector(".UUyzUc")
     }
     const priceNodes = list.querySelectorAll(".gN1nAc")
     priceNodes.forEach((price) => {
