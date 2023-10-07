@@ -81,10 +81,10 @@ function startWithSet() {
 }
 
 
-function waitToLoad(isDoneFunc, next) {
+function waitToLoad(next) {
     console.log("Waiting to Load")
-    let waitForLoading = true
     // The weirdest but the only way to find out if google has finished loading
+    let waitForLoading = true
     let interval = setInterval(() => {
         let st = document.querySelector(".VfPpkd-qNpTzb-P1ekSe.VfPpkd-qNpTzb-P1ekSe-OWXEXe-A9y3zc.VfPpkd-qNpTzb-P1ekSe-OWXEXe-OiiCO-IhfUye.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO-OiiCO-Xhs9z")
         if (st == null) {
@@ -95,135 +95,17 @@ function waitToLoad(isDoneFunc, next) {
             if (!waitForLoading) {
                 console.log("Loaded")
                 clearInterval(interval)
-                //console.log("next")
                 next()
+            }
+            else {
+                console.log("Pre-Loading")
             }
         }
     }, 10)
-    // let interval = setInterval(() => {
-    //     let isDone = isDoneFunc()
-    //     if (isDone) {
-    //         clearInterval(interval)
-    //         //console.log("next")
-    //         next()
-    //     }
-    //     else {
-    //         console.log("Waiting...")
-    //     }
-    // }, 250)
 }
 
-function waitFlightToLoad(isDepart, next) {
-    let skippedFirstCheck = false
-    waitToLoad(() => {
-        let container = document.querySelector(flightListNodeQuery)
-        if (container) {
-            container = container.parentNode
-            let h3 = container.querySelector(":scope > h3")
-            if (h3) {
-                let text = h3.textContent
-                if (isOneWay) {
-                    //Expected: "Best flights", "Other flights", "Flights"
-                    if (text == "Best flights") {
-                        // Skipping first check to prevent redraw on load
-                        if (!skippedFirstCheck) {
-                            skippedFirstCheck = true
-                            return false
-                        }
-                        return true
-                    }
-                    else if (text == "Other flights") {
-                        // If "other" exists, then only the "best" should be used
-                        return false
-                    }
-                    else if (text == "Flights") {
-                        // Skipping first check to prevent redraw on load (No "best" nor "other")
-                        if (!skippedFirstCheck) {
-                            skippedFirstCheck = true
-                            return false
-                        }
-                        return true
-                    }
-                    else {
-                        console.error("Unkown text to handle - " + text)
-                        return false
-                    }
-                }
-                if (isDepart) {
-                    //Expected: "Best departing flights", "Other departing flights", "Departing flights"
-                    if (text == "Best departing flights") {
-                        // Skipping first check to prevent redraw on load
-                        if (!skippedFirstCheck) {
-                            skippedFirstCheck = true
-                            return false
-                        }
-                        return true
-                    }
-                    else if (text == "Other departing flights") {
-                        // If "other" exists, then only the "best" should be used
-                        return false
-                    }
-                    else if (text == "Departing flights") {
-                        // Skipping first check to prevent redraw on load (No "best" nor "other")
-                        if (!skippedFirstCheck) {
-                            skippedFirstCheck = true
-                            return false
-                        }
-                        return true
-                    }
-                    else {
-                        console.error("Unkown text to handle - " + text)
-                        return false
-                    }
-                }
-                else {
-                    //Expected: "Best returning flights", "Other returning flights", "Returning flights"
-                    if (text == "Best returning flights") {
-                        // Skipping first check to prevent redraw on load
-                        if (!skippedFirstCheck) {
-                            skippedFirstCheck = true
-                            return false
-                        }
-                        return true
-                    }
-                    else if (text == "Other returning flights") {
-                        // If "other" exists, then only the "best" should be used
-                        return false
-                    }
-                    else if (text == "Returning flights") {
-                        // Skipping first check to prevent redraw on load (No "best" nor "other")
-                        if (!skippedFirstCheck) {
-                            skippedFirstCheck = true
-                            return false
-                        }
-                        return true
-                    }
-                    else {
-                        console.error("Unkown text to handle - " + text)
-                        return false
-                    }
-                }
-            }
-        }
-        return false
-    }, next)
-}
 
-function waitPriceToLoad(next) {
-    waitToLoad(() => {
-        let container = document.querySelector(priceListNodeQuery)
-        if (!container) {
-            // If the price list doesn't have the expandable, then it in this different query
-            container = document.querySelector(priceListNodeQuery2)
-        }
-        if (container) {
-            return true
-        }
-        return false
-    }, next)
-}
-
-function clickFlightAndRemove(clickingNode, index) {
+function clickFlight(clickingNode, index) {
     console.log("Clicking Flight")
     const flights = clickingNode.querySelectorAll(".pIav2d")
 
@@ -231,36 +113,15 @@ function clickFlightAndRemove(clickingNode, index) {
     let fNode = flight.querySelector(".OgQvJf.nKlB3b")
 
     fNode.click()
-    console.log(clickingNode)
-    console.log(fNode)
-    removeFlightList()
 }
 
-function removeFlightList(next) {
-
-    let removingChildNodes = document.querySelectorAll(flightListNodeQuery)
-    setTimeout(() => {
-        removingChildNodes.forEach((removingChildNode) => {
-            removingChildNode.parentNode.remove()
-            //console.warn(removingChildNode.parentNode)
-        })
-        if (next) {
-            next()
-        }
-    }, 1)
-}
-
-function backAndRemove(removeNode) {
+function goBack() {
     console.log("Going Back")
 
     history.back()
-
-    if (removeNode) {
-        removeFlightList()
-    }
 }
 
-function nextDayAndRemove() {
+function nextDay() {
     console.log("Next Day")
 
     currentDay++
@@ -282,10 +143,7 @@ function nextDayAndRemove() {
         fromRightBtn.click()
     }
 
-    removeFlightList(() => {
-        startWithSet()
-    })
-
+    startWithSet()
     console.log("Next Day Clicked")
 }
 
@@ -295,9 +153,9 @@ function nextDayAndRemove() {
 function proceedToFlight() {
     let result = readToFlight()
     if (result == 1) {
-        let result = nextDayAndRemove()
+        let result = nextDay()
         if (result != 1) {
-            waitFlightToLoad(true, () => {
+            waitToLoad(() => {
                 proceedToFlight()
             })
         }
@@ -325,21 +183,21 @@ function readToFlight() {
         }
 
         if (!skip) {
-            clickFlightAndRemove(listNode.parentNode, index)
+            clickFlight(listNode.parentNode, index)
 
             if (isRoundTrip) {
                 // Load returning flights
-                waitFlightToLoad(false, () => {
+                waitToLoad(() => {
                     proceedFromFlight()
                 })
             }
             else if (isOneWay) {
                 // Load price instantly
                 console.log("Prepare to Load Price")
-                waitPriceToLoad(() => {
+                waitToLoad(() => {
                     currentToFlight.prices = readPrices()
-                    backAndRemove()
-                    waitFlightToLoad(false, () => {
+                    goBack()
+                    waitToLoad(() => {
                         proceedToFlight()
                     })
                 })
@@ -371,8 +229,8 @@ function proceedFromFlight() {
 
     let result = readFromFlight()
     if (result == 1) {
-        backAndRemove(true)
-        waitFlightToLoad(true, () => {
+        goBack()
+        waitToLoad(() => {
             proceedToFlight()
         })
     }
@@ -398,12 +256,12 @@ function readFromFlight() {
         currentFromFlight = fromFlight
 
         if (!skip) {
-            clickFlightAndRemove(listNode.parentNode, index)
+            clickFlight(listNode.parentNode, index)
             console.log("Prepare to Load Price")
-            waitPriceToLoad(() => {
+            waitToLoad(() => {
                 currentFromFlight.prices = readPrices()
-                backAndRemove()
-                waitFlightToLoad(false, () => {
+                goBack()
+                waitToLoad(() => {
                     proceedFromFlight()
                 })
             })
