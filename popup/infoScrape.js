@@ -8,27 +8,27 @@ const backDateP = document.querySelector("#current-info #back-date")
 const fromAirportP = document.querySelector("#current-info #from-airport")
 const toAirportP = document.querySelector("#current-info #to-airport")
 
-var scrappedInfo = {}
+var scrapedInfo = {}
 
 chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-	injectInfoScrapper(tabs[0])
+	injectInfoScraper(tabs[0])
 })
 
 
-function injectInfoScrapper(tab) {
+function injectInfoScraper(tab) {
 	chrome.scripting.executeScript({
 		target: { tabId: tab.id },
-		files: ["content/infoScrapper.js"],
+		files: ["content/infoScraper.js"],
 	}).then(() => {
 		chrome.tabs.sendMessage(tab.id, {
 			info: true,
-		}, retrieveInfoScrappedData)
+		}, retrieveInfoScrapedData)
 	})
 }
 
-function retrieveInfoScrappedData(response) {
+function retrieveInfoScrapedData(response) {
 
-	scrappedInfo = response
+	scrapedInfo = response
 
 	tripTypeP.textContent = response.tripType
 	adultsP.textContent = response.adults

@@ -1,5 +1,5 @@
 
-function infoScrapperListener(request, sender, sendResponse) {
+function infoScraperListener(request, sender, sendResponse) {
 
     if (!request.info) {
         return
@@ -32,8 +32,8 @@ function infoScrapperListener(request, sender, sendResponse) {
 
     console.log(response)
     sendResponse(response)
-    chrome.runtime.onMessage.removeListener(infoScrapperListener)
+    chrome.runtime.onMessage.removeListener(infoScraperListener)
 
 }
 
-chrome.runtime.onMessage.addListener(infoScrapperListener)
+chrome.runtime.onMessage.addListener(infoScraperListener)

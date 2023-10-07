@@ -1,1041 +1,517 @@
 var dat = {
     "result": {
-        "SunJan21_ThuJan25": [
+        "FriOct20_FriNov17": [
             {
-                "stops": "Nonstop",
-                "departure": "6:40 AM",
-                "arrivalTime": "7:45 AM",
-                "airline": "AirAsia",
-                "travelTime": "1 hr 5 min",
-                "listedPrice": "MYR 342",
+                "stops": 1,
+                "departure": "8:50 AM",
+                "arrivalTime": "10:50 PM",
+                "airline": "Turkish Airlines",
+                "travelTime": "26 hr",
+                "listedPrice": "MYR 5,127",
                 "fromFlight": [
                     {
-                        "stops": "Nonstop",
-                        "departure": "11:00 AM",
-                        "arrivalTime": "12:00 PM",
-                        "airline": "Separate ticketsYou’ll buy each ticket in this itinerary separately",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 342",
+                        "stops": 1,
+                        "departure": "12:50 PM",
+                        "arrivalTime": "8:15 AM+2",
+                        "airline": "Turkish Airlines",
+                        "travelTime": "30 hr 25 min",
+                        "listedPrice": "MYR 5,127",
                         "prices": [
                             {
-                                "site": "traveloka, Malaysia Airlines",
-                                "price": "MYR 334"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "1:50 PM",
-                        "arrivalTime": "2:50 PM",
-                        "airline": "Separate ticketsYou’ll buy each ticket in this itinerary separately",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 342",
-                        "prices": [
-                            {
-                                "site": "traveloka, Malaysia Airlines",
-                                "price": "MYR 334"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "8:55 PM",
-                        "arrivalTime": "9:55 PM",
-                        "airline": "Separate ticketsYou’ll buy each ticket in this itinerary separately",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 342",
-                        "prices": [
-                            {
-                                "site": "traveloka, Malaysia Airlines",
-                                "price": "MYR 334"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "1:30 PM",
-                        "arrivalTime": "2:35 PM",
-                        "airline": "MYAirline",
-                        "travelTime": "1 hr 5 min",
-                        "listedPrice": "MYR 419",
-                        "prices": [
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 419"
+                                "site": "Turkish Airlines",
+                                "price": "MYR 5,127"
                             },
                             {
-                                "site": "Trip.com",
-                                "price": "MYR 458"
+                                "site": "Gotogate",
+                                "price": "MYR 5,017"
+                            },
+                            {
+                                "site": "Booking.com",
+                                "price": "MYR 5,084"
                             },
                             {
                                 "site": "hutchgo.com",
-                                "price": "MYR 467"
+                                "price": "MYR 5,196"
+                            },
+                            {
+                                "site": "Trip.com",
+                                "price": "MYR 5,409"
+                            }
+                        ]
+                    },
+                    {
+                        "stops": 1,
+                        "departure": "11:40 PM",
+                        "arrivalTime": "8:15 AM+3",
+                        "airline": "Turkish Airlines",
+                        "travelTime": "43 hr 35 min",
+                        "listedPrice": "MYR 5,127",
+                        "prices": [
+                            {
+                                "site": "Turkish Airlines",
+                                "price": "MYR 5,127"
+                            },
+                            {
+                                "site": "Gotogate",
+                                "price": "MYR 5,017"
+                            },
+                            {
+                                "site": "Booking.com",
+                                "price": "MYR 5,084"
+                            },
+                            {
+                                "site": "hutchgo.com",
+                                "price": "MYR 5,196"
+                            },
+                            {
+                                "site": "traveloka",
+                                "price": "MYR 7,801"
+                            }
+                        ]
+                    },
+                    {
+                        "stops": 1,
+                        "departure": "11:40 PM",
+                        "arrivalTime": "5:05 PM+2",
+                        "airline": "Turkish Airlines",
+                        "travelTime": "28 hr 25 min",
+                        "listedPrice": "MYR 6,711",
+                        "prices": [
+                            {
+                                "site": "Turkish Airlines",
+                                "price": "MYR 6,711"
+                            },
+                            {
+                                "site": "Gotogate",
+                                "price": "MYR 6,593"
+                            },
+                            {
+                                "site": "Expedia",
+                                "price": "MYR 6,710"
+                            },
+                            {
+                                "site": "Booking.com",
+                                "price": "MYR 6,736"
+                            },
+                            {
+                                "site": "hutchgo.com",
+                                "price": "MYR 6,814"
                             }
                         ]
                     }
                 ]
             },
             {
-                "stops": "Nonstop",
-                "departure": "3:00 PM",
-                "arrivalTime": "4:05 PM",
-                "airline": "MYAirline",
-                "travelTime": "1 hr 5 min",
-                "listedPrice": "MYR 396",
+                "stops": 1,
+                "departure": "9:55 AM",
+                "arrivalTime": "10:30 PM",
+                "airline": "Qatar Airways",
+                "travelTime": "24 hr 35 min",
+                "listedPrice": "MYR 5,712",
                 "fromFlight": [
                     {
-                        "stops": "Nonstop",
-                        "departure": "11:00 AM",
-                        "arrivalTime": "12:00 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 396",
+                        "stops": 1,
+                        "departure": "10:25 AM",
+                        "arrivalTime": "8:20 AM+2",
+                        "airline": "Qatar Airways",
+                        "travelTime": "32 hr 55 min",
+                        "listedPrice": "MYR 5,712",
                         "prices": [
                             {
-                                "site": "Trip.com",
-                                "price": "MYR 396"
+                                "site": "American",
+                                "price": "MYR 5,707$1,207"
                             },
                             {
-                                "site": "hutchgo.com",
-                                "price": "MYR 407"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 410"
+                                "site": "Qatar Airways",
+                                "price": "MYR 6,118"
                             },
                             {
                                 "site": "Gotogate",
-                                "price": "MYR 561"
+                                "price": "MYR 6,411"
                             },
                             {
-                                "site": "Booking.com",
-                                "price": "MYR 587"
+                                "site": "hutchgo.com",
+                                "price": "MYR 6,424"
+                            },
+                            {
+                                "site": "Airpaz",
+                                "price": "MYR 6,539"
                             }
                         ]
                     },
                     {
-                        "stops": "Nonstop",
-                        "departure": "1:50 PM",
-                        "arrivalTime": "2:50 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 396",
+                        "stops": 1,
+                        "departure": "8:20 PM",
+                        "arrivalTime": "8:20 AM+2",
+                        "airline": "Qatar Airways",
+                        "travelTime": "23 hr",
+                        "listedPrice": "MYR 6,012",
                         "prices": [
                             {
-                                "site": "Trip.com",
-                                "price": "MYR 396"
+                                "site": "American",
+                                "price": "MYR 6,375$1,349"
+                            },
+                            {
+                                "site": "Qatar Airways",
+                                "price": "MYR 6,816"
                             },
                             {
                                 "site": "hutchgo.com",
-                                "price": "MYR 407"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 410"
+                                "price": "MYR 7,178"
                             },
                             {
                                 "site": "Gotogate",
-                                "price": "MYR 561"
+                                "price": "MYR 7,208"
                             },
                             {
-                                "site": "Booking.com",
-                                "price": "MYR 587"
+                                "site": "Airpaz",
+                                "price": "MYR 7,317"
                             }
                         ]
                     },
                     {
-                        "stops": "Nonstop",
-                        "departure": "8:55 PM",
-                        "arrivalTime": "9:55 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 396",
+                        "stops": 1,
+                        "departure": "10:25 AM",
+                        "arrivalTime": "8:40 PM+1",
+                        "airline": "Qatar Airways, Malaysia Airlines",
+                        "travelTime": "21 hr 15 min",
+                        "listedPrice": "MYR 6,101",
                         "prices": [
                             {
-                                "site": "Trip.com",
-                                "price": "MYR 396"
-                            },
-                            {
-                                "site": "hutchgo.com",
-                                "price": "MYR 407"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 410"
+                                "site": "Qatar Airways",
+                                "price": "MYR 6,101"
                             },
                             {
                                 "site": "Gotogate",
-                                "price": "MYR 561"
+                                "price": "MYR 6,394"
                             },
                             {
                                 "site": "Booking.com",
-                                "price": "MYR 587"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "1:30 PM",
-                        "arrivalTime": "2:35 PM",
-                        "airline": "MYAirline",
-                        "travelTime": "1 hr 5 min",
-                        "listedPrice": "MYR 496",
-                        "prices": [
+                                "price": "MYR 6,550"
+                            },
                             {
                                 "site": "traveloka",
-                                "price": "MYR 496"
+                                "price": "MYR 8,794"
                             },
                             {
-                                "site": "Trip.com",
-                                "price": "MYR 538"
-                            },
-                            {
-                                "site": "hutchgo.com",
-                                "price": "MYR 539"
-                            },
-                            {
-                                "site": "Gotogate",
-                                "price": "MYR 600"
-                            },
-                            {
-                                "site": "Booking.com",
-                                "price": "MYR 628"
+                                "site": "American",
+                                "price": "MYR 11,831$2,503"
                             }
                         ]
                     }
                 ]
             },
             {
-                "stops": "Nonstop",
-                "departure": "8:25 AM",
-                "arrivalTime": "9:25 AM",
-                "airline": "Malaysia Airlines",
-                "travelTime": "1 hr",
-                "listedPrice": "MYR 436",
+                "stops": 1,
+                "departure": "2:40 AM",
+                "arrivalTime": "2:25 PM",
+                "airline": "Emirates",
+                "travelTime": "23 hr 45 min",
+                "listedPrice": "MYR 6,457",
                 "fromFlight": [
                     {
-                        "stops": "Nonstop",
-                        "departure": "11:00 AM",
-                        "arrivalTime": "12:00 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 436",
+                        "stops": 1,
+                        "departure": "10:40 AM",
+                        "arrivalTime": "9:50 PM+1",
+                        "airline": "Emirates",
+                        "travelTime": "22 hr 10 min",
+                        "listedPrice": "MYR 6,457",
                         "prices": [
                             {
-                                "site": "Agoda",
-                                "price": "MYR 304"
+                                "site": "Emirates",
+                                "price": "MYR 6,457"
+                            },
+                            {
+                                "site": "Gotogate",
+                                "price": "MYR 6,385"
+                            },
+                            {
+                                "site": "Booking.com",
+                                "price": "MYR 6,479"
+                            },
+                            {
+                                "site": "Expedia",
+                                "price": "MYR 6,490"
                             },
                             {
                                 "site": "hutchgo.com",
-                                "price": "MYR 355"
-                            },
-                            {
-                                "site": "Trip.com",
-                                "price": "MYR 356"
-                            },
-                            {
-                                "site": "Malaysia Airlines",
-                                "price": "MYR 436"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 415"
+                                "price": "MYR 6,491"
                             }
                         ]
                     },
                     {
-                        "stops": "Nonstop",
-                        "departure": "1:50 PM",
-                        "arrivalTime": "2:50 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 436",
+                        "stops": 1,
+                        "departure": "11:00 PM",
+                        "arrivalTime": "8:30 AM+2",
+                        "airline": "Emirates",
+                        "travelTime": "20 hr 30 min",
+                        "listedPrice": "MYR 6,457",
                         "prices": [
                             {
-                                "site": "Agoda",
-                                "price": "MYR 304"
+                                "site": "Emirates",
+                                "price": "MYR 6,457"
+                            },
+                            {
+                                "site": "Gotogate",
+                                "price": "MYR 6,385"
+                            },
+                            {
+                                "site": "Booking.com",
+                                "price": "MYR 6,479"
+                            },
+                            {
+                                "site": "Expedia",
+                                "price": "MYR 6,490"
                             },
                             {
                                 "site": "hutchgo.com",
-                                "price": "MYR 355"
-                            },
-                            {
-                                "site": "Trip.com",
-                                "price": "MYR 356"
-                            },
-                            {
-                                "site": "Malaysia Airlines",
-                                "price": "MYR 436"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 415"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "8:55 PM",
-                        "arrivalTime": "9:55 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 436",
-                        "prices": [
-                            {
-                                "site": "Agoda",
-                                "price": "MYR 304"
-                            },
-                            {
-                                "site": "hutchgo.com",
-                                "price": "MYR 355"
-                            },
-                            {
-                                "site": "Trip.com",
-                                "price": "MYR 356"
-                            },
-                            {
-                                "site": "Malaysia Airlines",
-                                "price": "MYR 436"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 415"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "1:30 PM",
-                        "arrivalTime": "2:35 PM",
-                        "airline": "MYAirline",
-                        "travelTime": "1 hr 5 min",
-                        "listedPrice": "MYR 478",
-                        "prices": [
-                            {
-                                "site": "Trip.com",
-                                "price": "MYR 478"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 502"
-                            },
-                            {
-                                "site": "hutchgo.com",
-                                "price": "MYR 504"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "stops": "Nonstop",
-                "departure": "10:10 AM",
-                "arrivalTime": "11:10 AM",
-                "airline": "Malindo Air",
-                "travelTime": "1 hr",
-                "listedPrice": "MYR 480",
-                "fromFlight": [
-                    {
-                        "stops": "Nonstop",
-                        "departure": "11:00 AM",
-                        "arrivalTime": "12:00 PM",
-                        "airline": "Separate ticketsYou’ll buy each ticket in this itinerary separately",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 480",
-                        "prices": [
-                            {
-                                "site": "Malindo Air, Malaysia Airlines",
-                                "price": "MYR 479"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "1:50 PM",
-                        "arrivalTime": "2:50 PM",
-                        "airline": "Separate ticketsYou’ll buy each ticket in this itinerary separately",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 480",
-                        "prices": [
-                            {
-                                "site": "Malindo Air, Malaysia Airlines",
-                                "price": "MYR 479"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "8:55 PM",
-                        "arrivalTime": "9:55 PM",
-                        "airline": "Separate ticketsYou’ll buy each ticket in this itinerary separately",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 480",
-                        "prices": [
-                            {
-                                "site": "Malindo Air, Malaysia Airlines",
-                                "price": "MYR 479"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "1:30 PM",
-                        "arrivalTime": "2:35 PM",
-                        "airline": "MYAirline",
-                        "travelTime": "1 hr 5 min",
-                        "listedPrice": "MYR 561",
-                        "prices": [
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 561"
-                            },
-                            {
-                                "site": "Trip.com",
-                                "price": "MYR 696"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "stops": "Nonstop",
-                "departure": "3:30 PM",
-                "arrivalTime": "4:35 PM",
-                "airline": "MAI",
-                "travelTime": "1 hr 5 min",
-                "listedPrice": "Price unavailable",
-                "fromFlight": [
-                    {
-                        "stops": "Nonstop",
-                        "departure": "9:05 AM",
-                        "arrivalTime": "10:05 AM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "11:00 AM",
-                        "arrivalTime": "12:00 PM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "1:50 PM",
-                        "arrivalTime": "2:50 PM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "4:15 PM",
-                        "arrivalTime": "5:15 PM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "8:55 PM",
-                        "arrivalTime": "9:55 PM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
+                                "price": "MYR 6,491"
                             }
                         ]
                     }
                 ]
             }
         ],
-        "MonJan22_FriJan26": [
+        "SatOct21_SatNov18": [
             {
-                "stops": "Nonstop",
-                "departure": "8:25 AM",
-                "arrivalTime": "9:25 AM",
-                "airline": "Malaysia Airlines",
-                "travelTime": "1 hr",
-                "listedPrice": "MYR 358",
+                "stops": 1,
+                "departure": "8:50 AM",
+                "arrivalTime": "10:50 PM",
+                "airline": "Turkish Airlines",
+                "travelTime": "26 hr",
+                "listedPrice": "MYR 4,867",
                 "fromFlight": [
                     {
-                        "stops": "Nonstop",
-                        "departure": "11:00 AM",
-                        "arrivalTime": "12:00 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 358",
+                        "stops": 1,
+                        "departure": "8:00 PM",
+                        "arrivalTime": "8:15 AM+2",
+                        "airline": "Turkish Airlines",
+                        "travelTime": "23 hr 15 min",
+                        "listedPrice": "MYR 4,867",
                         "prices": [
                             {
-                                "site": "Agoda",
-                                "price": "MYR 242"
-                            },
-                            {
-                                "site": "Trip.com",
-                                "price": "MYR 286"
+                                "site": "Turkish Airlines",
+                                "price": "MYR 4,867"
                             },
                             {
                                 "site": "hutchgo.com",
-                                "price": "MYR 291"
-                            },
-                            {
-                                "site": "Malaysia Airlines",
-                                "price": "MYR 358"
+                                "price": "MYR 4,930"
                             },
                             {
                                 "site": "traveloka",
-                                "price": "MYR 354"
+                                "price": "MYR 7,804"
                             }
                         ]
                     },
                     {
-                        "stops": "Nonstop",
-                        "departure": "1:50 PM",
-                        "arrivalTime": "2:50 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 358",
+                        "stops": 1,
+                        "departure": "11:40 PM",
+                        "arrivalTime": "5:05 PM+2",
+                        "airline": "Turkish Airlines",
+                        "travelTime": "28 hr 25 min",
+                        "listedPrice": "MYR 4,867",
                         "prices": [
                             {
-                                "site": "Agoda",
-                                "price": "MYR 242"
-                            },
-                            {
-                                "site": "Trip.com",
-                                "price": "MYR 286"
+                                "site": "Turkish Airlines",
+                                "price": "MYR 4,867"
                             },
                             {
                                 "site": "hutchgo.com",
-                                "price": "MYR 291"
-                            },
-                            {
-                                "site": "Malaysia Airlines",
-                                "price": "MYR 358"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 354"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "8:55 PM",
-                        "arrivalTime": "9:55 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 358",
-                        "prices": [
-                            {
-                                "site": "Agoda",
-                                "price": "MYR 242"
+                                "price": "MYR 4,930"
                             },
                             {
                                 "site": "Trip.com",
-                                "price": "MYR 286"
-                            },
-                            {
-                                "site": "hutchgo.com",
-                                "price": "MYR 291"
-                            },
-                            {
-                                "site": "Malaysia Airlines",
-                                "price": "MYR 358"
+                                "price": "MYR 5,124"
                             },
                             {
                                 "site": "traveloka",
-                                "price": "MYR 354"
+                                "price": "MYR 7,800"
                             }
                         ]
                     }
                 ]
             },
             {
-                "stops": "Nonstop",
-                "departure": "3:00 PM",
-                "arrivalTime": "4:05 PM",
-                "airline": "MYAirline",
-                "travelTime": "1 hr 5 min",
-                "listedPrice": "MYR 407",
+                "stops": 1,
+                "departure": "7:15 PM",
+                "arrivalTime": "9:30 AM+1",
+                "airline": "Etihad",
+                "travelTime": "26 hr 15 min",
+                "listedPrice": "MYR 5,444",
                 "fromFlight": [
                     {
-                        "stops": "Nonstop",
-                        "departure": "11:00 AM",
-                        "arrivalTime": "12:00 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 407",
+                        "stops": 2,
+                        "departure": "6:25 PM",
+                        "arrivalTime": "10:40 AM+2",
+                        "airline": "Brussels Airlines, Etihad",
+                        "travelTime": "27 hr 15 min",
+                        "listedPrice": "MYR 5,444",
                         "prices": [
                             {
-                                "site": "Trip.com",
-                                "price": "MYR 406"
-                            },
-                            {
-                                "site": "hutchgo.com",
-                                "price": "MYR 407"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 410"
+                                "site": "Etihad",
+                                "price": "MYR 5,444"
                             },
                             {
                                 "site": "Gotogate",
-                                "price": "MYR 561"
+                                "price": "MYR 5,392"
+                            },
+                            {
+                                "site": "Expedia",
+                                "price": "MYR 5,443"
                             },
                             {
                                 "site": "Booking.com",
-                                "price": "MYR 587"
+                                "price": "MYR 5,469"
                             }
                         ]
                     },
                     {
-                        "stops": "Nonstop",
-                        "departure": "1:50 PM",
-                        "arrivalTime": "2:50 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 407",
+                        "stops": 1,
+                        "departure": "10:00 PM",
+                        "arrivalTime": "10:40 AM+2",
+                        "airline": "Etihad",
+                        "travelTime": "23 hr 40 min",
+                        "listedPrice": "MYR 7,372",
                         "prices": [
                             {
-                                "site": "Trip.com",
-                                "price": "MYR 406"
-                            },
-                            {
-                                "site": "hutchgo.com",
-                                "price": "MYR 407"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 410"
+                                "site": "Etihad",
+                                "price": "MYR 7,372"
                             },
                             {
                                 "site": "Gotogate",
-                                "price": "MYR 561"
+                                "price": "MYR 7,178"
+                            },
+                            {
+                                "site": "Airpaz",
+                                "price": "MYR 7,194"
+                            },
+                            {
+                                "site": "Expedia",
+                                "price": "MYR 7,371"
                             },
                             {
                                 "site": "Booking.com",
-                                "price": "MYR 587"
+                                "price": "MYR 7,433"
                             }
                         ]
                     },
                     {
-                        "stops": "Nonstop",
-                        "departure": "8:55 PM",
-                        "arrivalTime": "9:55 PM",
-                        "airline": "Malaysia Airlines",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 407",
+                        "stops": 1,
+                        "departure": "12:05 AM",
+                        "arrivalTime": "2:15 PM+2",
+                        "airline": "EVA Air",
+                        "travelTime": "49 hr 10 min",
+                        "listedPrice": "MYR 23,171",
                         "prices": [
                             {
-                                "site": "Trip.com",
-                                "price": "MYR 406"
-                            },
-                            {
-                                "site": "hutchgo.com",
-                                "price": "MYR 407"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 410"
+                                "site": "Etihad",
+                                "price": "MYR 23,171"
                             },
                             {
                                 "site": "Gotogate",
-                                "price": "MYR 561"
+                                "price": "MYR 23,119"
                             },
                             {
                                 "site": "Booking.com",
-                                "price": "MYR 587"
+                                "price": "MYR 23,196"
                             }
                         ]
                     },
                     {
-                        "stops": "Nonstop",
-                        "departure": "1:30 PM",
-                        "arrivalTime": "2:35 PM",
-                        "airline": "MYAirline",
-                        "travelTime": "1 hr 5 min",
-                        "listedPrice": "MYR 496",
+                        "stops": 2,
+                        "departure": "9:00 AM",
+                        "arrivalTime": "9:20 PM+1",
+                        "airline": "Cathay Pacific, Malaysia Airlines",
+                        "travelTime": "23 hr 20 min",
+                        "listedPrice": "MYR 41,940",
                         "prices": [
                             {
-                                "site": "traveloka",
-                                "price": "MYR 496"
-                            },
-                            {
-                                "site": "Trip.com",
-                                "price": "MYR 538"
-                            },
-                            {
-                                "site": "hutchgo.com",
-                                "price": "MYR 539"
+                                "site": "Etihad",
+                                "price": "MYR 41,940"
                             },
                             {
                                 "site": "Gotogate",
-                                "price": "MYR 600"
-                            },
-                            {
-                                "site": "Booking.com",
-                                "price": "MYR 628"
+                                "price": "MYR 41,888"
                             }
                         ]
                     }
                 ]
             },
             {
-                "stops": "Nonstop",
-                "departure": "6:00 AM",
-                "arrivalTime": "7:05 AM",
-                "airline": "AirAsia",
-                "travelTime": "1 hr 5 min",
-                "listedPrice": "MYR 416",
+                "stops": 1,
+                "departure": "9:55 AM",
+                "arrivalTime": "10:30 PM",
+                "airline": "Qatar Airways",
+                "travelTime": "24 hr 35 min",
+                "listedPrice": "MYR 6,012",
                 "fromFlight": [
                     {
-                        "stops": "Nonstop",
-                        "departure": "1:30 PM",
-                        "arrivalTime": "2:35 PM",
-                        "airline": "MYAirline",
-                        "travelTime": "1 hr 5 min",
-                        "listedPrice": "MYR 416",
+                        "stops": 1,
+                        "departure": "8:20 PM",
+                        "arrivalTime": "8:20 AM+2",
+                        "airline": "Qatar Airways",
+                        "travelTime": "23 hr",
+                        "listedPrice": "MYR 6,012",
                         "prices": [
                             {
-                                "site": "traveloka",
-                                "price": "MYR 416"
+                                "site": "American",
+                                "price": "MYR 6,006$1,271"
                             },
                             {
-                                "site": "Trip.com",
-                                "price": "MYR 446"
+                                "site": "Qatar Airways",
+                                "price": "MYR 6,708"
                             },
                             {
                                 "site": "hutchgo.com",
-                                "price": "MYR 478"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "8:30 AM",
-                        "arrivalTime": "9:30 AM",
-                        "airline": "AirAsia",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 487",
-                        "prices": [
-                            {
-                                "site": "AirAsia",
-                                "price": "MYR 487"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 473"
-                            },
-                            {
-                                "site": "Expedia",
-                                "price": "MYR 487"
-                            },
-                            {
-                                "site": "Booking.com",
-                                "price": "MYR 501"
+                                "price": "MYR 7,061"
                             },
                             {
                                 "site": "Gotogate",
-                                "price": "MYR 517"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "8:30 AM",
-                        "arrivalTime": "9:30 AM",
-                        "airline": "AirAsia",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 487",
-                        "prices": [
-                            {
-                                "site": "AirAsia",
-                                "price": "MYR 487"
+                                "price": "MYR 7,091"
                             },
                             {
-                                "site": "traveloka",
-                                "price": "MYR 473"
-                            },
-                            {
-                                "site": "Expedia",
-                                "price": "MYR 487"
-                            },
-                            {
-                                "site": "Booking.com",
-                                "price": "MYR 501"
-                            },
-                            {
-                                "site": "Gotogate",
-                                "price": "MYR 517"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "10:40 AM",
-                        "arrivalTime": "11:40 AM",
-                        "airline": "AirAsia",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 487",
-                        "prices": [
-                            {
-                                "site": "AirAsia",
-                                "price": "MYR 487"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 473"
-                            },
-                            {
-                                "site": "Booking.com",
-                                "price": "MYR 501"
-                            },
-                            {
-                                "site": "Gotogate",
-                                "price": "MYR 517"
-                            },
-                            {
-                                "site": "Trip.com",
-                                "price": "MYR 520"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "3:05 PM",
-                        "arrivalTime": "4:05 PM",
-                        "airline": "AirAsia",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 587",
-                        "prices": [
-                            {
-                                "site": "AirAsia",
-                                "price": "MYR 587"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 573"
-                            },
-                            {
-                                "site": "Expedia",
-                                "price": "MYR 587"
-                            },
-                            {
-                                "site": "Booking.com",
-                                "price": "MYR 605"
-                            },
-                            {
-                                "site": "Gotogate",
-                                "price": "MYR 617"
+                                "site": "Airpaz",
+                                "price": "MYR 7,197"
                             }
                         ]
                     }
                 ]
             },
             {
-                "stops": "Nonstop",
-                "departure": "10:10 AM",
-                "arrivalTime": "11:10 AM",
-                "airline": "Malindo Air",
-                "travelTime": "1 hr",
-                "listedPrice": "MYR 561",
+                "stops": 1,
+                "departure": "2:40 AM",
+                "arrivalTime": "2:25 PM",
+                "airline": "Emirates",
+                "travelTime": "23 hr 45 min",
+                "listedPrice": "MYR 6,279",
                 "fromFlight": [
                     {
-                        "stops": "Nonstop",
-                        "departure": "8:30 AM",
-                        "arrivalTime": "9:30 AM",
-                        "airline": "Malindo Air",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 606",
+                        "stops": 1,
+                        "departure": "11:00 PM",
+                        "arrivalTime": "8:30 AM+2",
+                        "airline": "Emirates",
+                        "travelTime": "20 hr 30 min",
+                        "listedPrice": "MYR 6,356",
                         "prices": [
                             {
-                                "site": "Malindo Air",
-                                "price": "MYR 606"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 596"
+                                "site": "Emirates",
+                                "price": "MYR 6,356"
                             },
                             {
                                 "site": "Gotogate",
-                                "price": "MYR 709"
+                                "price": "MYR 6,282"
+                            },
+                            {
+                                "site": "Booking.com",
+                                "price": "MYR 6,377"
                             },
                             {
                                 "site": "Expedia",
-                                "price": "MYR 740"
+                                "price": "MYR 6,388"
                             },
                             {
-                                "site": "Agoda",
-                                "price": "MYR 751"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "1:10 PM",
-                        "arrivalTime": "2:10 PM",
-                        "airline": "Malindo Air",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 606",
-                        "prices": [
-                            {
-                                "site": "Malindo Air",
-                                "price": "MYR 606"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 596"
-                            },
-                            {
-                                "site": "Gotogate",
-                                "price": "MYR 709"
-                            },
-                            {
-                                "site": "Expedia",
-                                "price": "MYR 740"
-                            },
-                            {
-                                "site": "Agoda",
-                                "price": "MYR 751"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "6:00 PM",
-                        "arrivalTime": "7:00 PM",
-                        "airline": "Malindo Air",
-                        "travelTime": "1 hr",
-                        "listedPrice": "MYR 606",
-                        "prices": [
-                            {
-                                "site": "Malindo Air",
-                                "price": "MYR 606"
-                            },
-                            {
-                                "site": "traveloka",
-                                "price": "MYR 596"
-                            },
-                            {
-                                "site": "Gotogate",
-                                "price": "MYR 709"
-                            },
-                            {
-                                "site": "Expedia",
-                                "price": "MYR 740"
-                            },
-                            {
-                                "site": "Agoda",
-                                "price": "MYR 751"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "stops": "Nonstop",
-                "departure": "3:30 PM",
-                "arrivalTime": "4:35 PM",
-                "airline": "MAI",
-                "travelTime": "1 hr 5 min",
-                "listedPrice": "Price unavailable",
-                "fromFlight": [
-                    {
-                        "stops": "Nonstop",
-                        "departure": "9:05 AM",
-                        "arrivalTime": "10:05 AM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "11:00 AM",
-                        "arrivalTime": "12:00 PM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "1:50 PM",
-                        "arrivalTime": "2:50 PM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "4:15 PM",
-                        "arrivalTime": "5:15 PM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
-                            }
-                        ]
-                    },
-                    {
-                        "stops": "Nonstop",
-                        "departure": "8:55 PM",
-                        "arrivalTime": "9:55 PM",
-                        "airline": "MAI",
-                        "travelTime": "1 hr",
-                        "listedPrice": "Price unavailable",
-                        "prices": [
-                            {
-                                "site": "MAI",
-                                "price": "Visit site for price"
+                                "site": "hutchgo.com",
+                                "price": "MYR 6,390"
                             }
                         ]
                     }
@@ -1044,14 +520,14 @@ var dat = {
         ]
     },
     "days": 1,
-    "maxStops": 0,
-    "scrappedInfo": {
+    "maxStops": 2,
+    "scrapedInfo": {
         "tripType": "Round trip",
-        "adults": "2",
+        "adults": "1",
         "flightType": "Economy",
-        "goDate": "Sun, Jan 21",
-        "backDate": "Thu, Jan 25",
-        "fromAirport": "Penang",
-        "toAirport": "Federal Territory of Kuala Lumpur"
+        "goDate": "Fri, Oct 20",
+        "backDate": "Fri, Nov 17",
+        "fromAirport": "Federal Territory of Kuala Lumpur",
+        "toAirport": "New York"
     }
 }

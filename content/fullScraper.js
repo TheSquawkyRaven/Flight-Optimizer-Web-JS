@@ -13,7 +13,7 @@ var requiredDays
 
 var maxStops
 
-var scrappedInfo
+var scrapedInfo
 var isRoundTrip
 var isOneWay
 
@@ -25,7 +25,7 @@ var currentFromFlight
 
 var completed = false
 
-function fullScrapperListener(request, sender, sendResponse) {
+function fullScraperListener(request, sender, sendResponse) {
 
     if (!request.scrape) {
         return
@@ -38,13 +38,13 @@ function fullScrapperListener(request, sender, sendResponse) {
 
     maxStops = request.stops
 
-    scrappedInfo = request.scrappedInfo
-    console.log(scrappedInfo)
+    scrapedInfo = request.scrapedInfo
+    console.log(scrapedInfo)
 
-    isRoundTrip = scrappedInfo.tripType == roundTripText
-    isOneWay = scrappedInfo.tripType == oneWayText
+    isRoundTrip = scrapedInfo.tripType == roundTripText
+    isOneWay = scrapedInfo.tripType == oneWayText
     if (!isRoundTrip && !isOneWay) {
-        alert("Trip Type: " + scrappedInfo.tripType + " is not supported!")
+        alert("Trip Type: " + scrapedInfo.tripType + " is not supported!")
         return
     }
 
@@ -60,7 +60,7 @@ function finishedBuildData() {
     builtData.result = data
     builtData.days = requiredDays
     builtData.maxStops = maxStops
-    builtData.scrappedInfo = scrappedInfo
+    builtData.scrapedInfo = scrapedInfo
 
     console.log(builtData)
     completed = true
@@ -354,4 +354,4 @@ function readPrices() {
 
 
 
-chrome.runtime.onMessage.addListener(fullScrapperListener)
+chrome.runtime.onMessage.addListener(fullScraperListener)

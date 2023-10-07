@@ -12,8 +12,8 @@ function processDat(data) {
     let flatten = document.querySelector("#flatten-csv").checked
 
     let result = data.result
-    let isRoundTrip = data.scrappedInfo.tripType == roundTripText
-    let isOneWay = data.scrappedInfo.tripType == oneWayText
+    let isRoundTrip = data.scrapedInfo.tripType == roundTripText
+    let isOneWay = data.scrapedInfo.tripType == oneWayText
 
     csvHeader = csvHeaderPreset
     csvContent = ""

@@ -18,7 +18,7 @@ function startScrape() {
     }
 
     chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-        injectFullScrapper(tabs[0], days, stops, scrappedInfo)
+        injectFullScraper(tabs[0], days, stops, scrapedInfo)
     })
 	
 }
@@ -36,16 +36,16 @@ tryRetrieveButton.addEventListener('click', tryRetrieve)
 
 var intervalTest
 
-function injectFullScrapper(tab, days, stops, scrappedInfo) {
+function injectFullScraper(tab, days, stops, scrapedInfo) {
 	chrome.scripting.executeScript({
 		target: { tabId: tab.id },
-		files: ["content/fullScrapper.js"],
+		files: ["content/fullScraper.js"],
 	}).then(() => {
 		chrome.tabs.sendMessage(tab.id, {
             scrape: true,
             days: days,
             stops: stops,
-            scrappedInfo: scrappedInfo,
+            scrapedInfo: scrapedInfo,
         }, () => {})
 	})
 
@@ -62,12 +62,12 @@ function testFinishScraping(tab) {
 	}).then(() => {
 		chrome.tabs.sendMessage(tab.id, {
             retrieve: true,
-        }, tryRetrieveScrappedData)
+        }, tryRetrieveScrapedData)
 	})
 }
 
 
-function tryRetrieveScrappedData(response) {
+function tryRetrieveScrapedData(response) {
     console.log("Try Retrieve")
     
     if (response.completed) {
