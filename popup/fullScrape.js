@@ -53,12 +53,12 @@ function tryRetrieveScrappedData(response) {
     
     if (response.completed) {
         console.log("Retrieved!")
-        console.log(response.data)
         clearInterval(intervalTest)
 
-        dat = response.data
-        let csv = processDat()
-        document.querySelector("#scrape-converted-csv").textContent = csv
+        let data = response.data
+        console.log(data)
+        document.querySelector("#scraped-data").textContent = data
+        processDat(data)
 
     }
 
