@@ -9,11 +9,14 @@ function infoScraperListener(request, sender, sendResponse) {
 
     // URL Check
     let url = window.location.href
-    if (url.startsWith("https://www.google.com/travel/flights")) {
-        error.error = "Please search for a flight first before using this"
-    }
-    else if (url.startsWith("https://www.google.com/travel/flights/booking")) {
+    if (url.startsWith("https://www.google.com/travel/flights/booking")) {
         error.error = "Please return to the departing flights page to use this, not the pricing page"
+        sendResponse(error)
+        return
+    }
+    else if (url.startsWith("https://www.google.com/travel/flights")) {
+        error.error = "Please search for a flight first before using this"
+        // Don't send & return
     }
 
     if (!request.info) {
@@ -76,8 +79,8 @@ function infoScraperListener(request, sender, sendResponse) {
         sendResponse(error)
         return
     }
-    // "Departing flights" or "Best departing flights" only
-    if (!title.includes("eparting")) {
+    // Ignore "Returning Flights" or "Best Returning Flights"
+    if (title.includes("eturning") ) {
         error.error = "You must be in the Departing Flights page, not the Returning Flights page"
         sendResponse(error)
         return
