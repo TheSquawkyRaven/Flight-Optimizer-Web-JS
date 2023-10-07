@@ -1,7 +1,7 @@
 
 const flightListNodeQuery = ".Rk10dc"
 const priceListNodeQuery = ".AnvSgb"
-// If the price list doesn't have the expandable, then it in this different query
+// If the price list doesn't have the expandable, then it is in this different query
 const priceListNodeQuery2 = ".UUyzUc"
 
 const roundTripText = "Round trip"
@@ -338,7 +338,7 @@ function readPrices() {
     var prices = []
     let list = document.querySelector(priceListNodeQuery)
     if (!list) {
-        // If the price list doesn't have the expandable, then it in this different query
+        // If the price list doesn't have the expandable, then it is in this different query
         list = document.querySelector(priceListNodeQuery2)
     }
     const priceNodes = list.querySelectorAll(".gN1nAc")
