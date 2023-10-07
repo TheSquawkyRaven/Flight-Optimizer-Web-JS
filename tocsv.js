@@ -2,7 +2,7 @@
 const roundTripText = "Round trip"
 const oneWayText = "One way"
 
-const csvHeaderPreset = `ID, Date To Destination, Date From Destination, To Airline, To Departure, To Arrival, To Travel Time, To Listed Price, From Airline, From Departure, From Arrival, From Travel Time, From Listed Price`
+const csvHeaderPreset = `Set, Date To Destination, Date From Destination, To Airline, To Departure, To Arrival, To Travel Time, To Listed Price, From Airline, From Departure, From Arrival, From Travel Time, From Listed Price`
 var csvHeader = ""
 var csvContent = ""
 var csv = ""
@@ -30,10 +30,22 @@ function processDat(data) {
 
 
     for (let key in result) {
+
         let roundDates = result[key]
         let dates = key.split("_")
         let departureDate = dates[0].substring(3)
-        let roundReturnDate = dates[1].substring(3)
+        departureDate = departureDate.substring(0, 3) + " " + departureDate.substring(3)
+
+        let roundReturnDate
+        if (isRoundTrip) {
+            roundReturnDate = dates[1].substring(3)
+            roundReturnDate = roundReturnDate.substring(0, 3) + " " + roundReturnDate.substring(3)
+            set = departureDate + " - " + roundReturnDate
+        }
+        else if (isOneWay) {
+            set = departureDate
+        }
+
         roundDates.forEach((toFlight) => {
             if (toFlight.skip == 1) {
                 return
@@ -42,7 +54,7 @@ function processDat(data) {
             let departureInfo = `, ${toFlight.airline.replace(",", ".")}, ${toFlight.departure}, ${toFlight.arrivalTime}, ${toFlight.travelTime}, ${toFlight.listedPrice.replace(/[^0-9]/g, "")}`.replace(/\+[0-9]/g, "")
 
             if (isRoundTrip) {
-                let basicInfo = `${key}, ${departureDate}, ${roundReturnDate}`
+                let basicInfo = `${set}, ${departureDate}, ${roundReturnDate}`
 
                 toFlight.fromFlight.forEach((fromFlight) => {
                     if (fromFlight.skip == 1) {
@@ -54,27 +66,27 @@ function processDat(data) {
 
                     let priceInfo = retrievePrice(fromFlight, purchaseSites, purchaseOrder, flatten)
                     if (!flatten) {
-                        csvContent += `${basicInfo}${departureInfo}${roundReturnInfo}${priceInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+                        csvContent += `${basicInfo}${departureInfo}${roundReturnInfo}${priceInfo}\n`.replace(/[^a-zA-Z ,0-9:.\-\n]/g, "")
                     }
                     else {
                         priceInfo.forEach((pInfo) => {
-                            csvContent += `${basicInfo}${departureInfo}${roundReturnInfo}${pInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+                            csvContent += `${basicInfo}${departureInfo}${roundReturnInfo}${pInfo}\n`.replace(/[^a-zA-Z ,0-9:.\-\n]/g, "")
                         })
                     }
                 })
             }
             else if (isOneWay) {
-                let basicInfo = `${key}, ${departureDate}`
+                let basicInfo = `${set}, ${departureDate}`
 
                 resetPurchaseSites(purchaseSites)
                 
                 let priceInfo = retrievePrice(toFlight, purchaseSites, purchaseOrder, flatten)
                 if (!flatten) {
-                    csvContent += `${basicInfo}${departureInfo}${priceInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+                    csvContent += `${basicInfo}${departureInfo}${priceInfo}\n`.replace(/[^a-zA-Z ,0-9:.\-\n]/g, "")
                 }
                 else {
                     priceInfo.forEach((pInfo) => {
-                        csvContent += `${basicInfo}${departureInfo}${pInfo}\n`.replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+                        csvContent += `${basicInfo}${departureInfo}${pInfo}\n`.replace(/[^a-zA-Z ,0-9:.\-\n]/g, "")
                     })
                 }
             }
