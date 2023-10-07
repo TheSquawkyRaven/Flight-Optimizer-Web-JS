@@ -50,6 +50,7 @@ function fullScrapperListener(request, sender, sendResponse) {
 
     startWithSet()
     proceedToFlight()
+
 }
 
 
@@ -82,17 +83,34 @@ function startWithSet() {
 
 function waitToLoad(isDoneFunc, next) {
     console.log("Waiting to Load")
+    let waitForLoading = true
+    // The weirdest but the only way to find out if google has finished loading
     let interval = setInterval(() => {
-        let isDone = isDoneFunc()
-        if (isDone) {
-            clearInterval(interval)
-            //console.log("next")
-            next()
+        let st = document.querySelector(".VfPpkd-qNpTzb-P1ekSe.VfPpkd-qNpTzb-P1ekSe-OWXEXe-A9y3zc.VfPpkd-qNpTzb-P1ekSe-OWXEXe-OiiCO-IhfUye.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO.VfPpkd-qNpTzb-P1ekSe-OWXEXe-xTMeO-OiiCO-Xhs9z")
+        if (st == null) {
+            console.log("Loading")
+            waitForLoading = false
         }
         else {
-            console.log("Waiting...")
+            if (!waitForLoading) {
+                console.log("Loaded")
+                clearInterval(interval)
+                //console.log("next")
+                next()
+            }
         }
-    }, 250)
+    }, 10)
+    // let interval = setInterval(() => {
+    //     let isDone = isDoneFunc()
+    //     if (isDone) {
+    //         clearInterval(interval)
+    //         //console.log("next")
+    //         next()
+    //     }
+    //     else {
+    //         console.log("Waiting...")
+    //     }
+    // }, 250)
 }
 
 function waitFlightToLoad(isDepart, next) {
@@ -212,8 +230,10 @@ function clickFlightAndRemove(clickingNode, index) {
     let flight = flights[index]
     let fNode = flight.querySelector(".OgQvJf.nKlB3b")
 
-    removeFlightList()
     fNode.click()
+    console.log(clickingNode)
+    console.log(fNode)
+    removeFlightList()
 }
 
 function removeFlightList(next) {
@@ -222,21 +242,22 @@ function removeFlightList(next) {
     setTimeout(() => {
         removingChildNodes.forEach((removingChildNode) => {
             removingChildNode.parentNode.remove()
+            //console.warn(removingChildNode.parentNode)
         })
         if (next) {
             next()
         }
-    }, 10)
+    }, 1)
 }
 
 function backAndRemove(removeNode) {
     console.log("Going Back")
 
+    history.back()
+
     if (removeNode) {
         removeFlightList()
     }
-
-    history.back()
 }
 
 function nextDayAndRemove() {
@@ -247,10 +268,6 @@ function nextDayAndRemove() {
         finishedBuildData()
         return 1
     }
-
-    removeFlightList(() => {
-        startWithSet()
-    })
 
     const buttons = document.querySelectorAll(".VfPpkd-LgbsSe.VfPpkd-LgbsSe-OWXEXe-Bz112c-M1Soyc.LjDxcd.XhPA0b.LQeN7.Tmm8n")
     if (isRoundTrip) {
@@ -264,6 +281,10 @@ function nextDayAndRemove() {
         const fromRightBtn = buttons[1]
         fromRightBtn.click()
     }
+
+    removeFlightList(() => {
+        startWithSet()
+    })
 
     console.log("Next Day Clicked")
 }

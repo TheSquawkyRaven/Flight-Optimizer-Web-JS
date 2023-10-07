@@ -39,7 +39,7 @@ function processDat(data) {
                 return
             }
 
-            let departureInfo = `, ${toFlight.airline}, ${toFlight.departure}, ${toFlight.arrivalTime}, ${toFlight.listedPrice.replace(/[^0-9]/g, "")}`.replaceAll("+1", "").replaceAll("+2", "")
+            let departureInfo = `, ${toFlight.airline.replace(",", ".")}, ${toFlight.departure}, ${toFlight.arrivalTime}, ${toFlight.listedPrice.replace(/[^0-9]/g, "")}`.replace(/\+[0-9]/g, "")
 
             if (isRoundTrip) {
                 let basicInfo = `${key}, ${departureDate}, ${roundReturnDate}`
@@ -50,7 +50,7 @@ function processDat(data) {
                     }
                     resetPurchaseSites(purchaseSites)
 
-                    let roundReturnInfo = `, ${fromFlight.airline}, ${fromFlight.departure}, ${fromFlight.arrivalTime}, ${fromFlight.listedPrice.replace(/[^0-9]/g, "")}`.replaceAll("+1", "").replaceAll("+2", "")
+                    let roundReturnInfo = `, ${fromFlight.airline.replace(",", ".")}, ${fromFlight.departure}, ${fromFlight.arrivalTime}, ${fromFlight.listedPrice.replace(/[^0-9]/g, "")}`.replace(/\+[0-9]/g, "")
 
                     let priceInfo = retrievePrice(fromFlight, purchaseSites, purchaseOrder, flatten)
                     if (!flatten) {
@@ -146,16 +146,30 @@ function retrievePrice(container, purchaseSites, purchaseOrder, flatten) {
         })
         let lowerRow = ""
         purchaseOrder.forEach((order) => {
-            lowerRow += `, "${String(purchaseSites[order]).replace(/[^0-9]/g, "")}"`
+            let priceValue = String(purchaseSites[order])
+            if (priceValue.includes("$")) {
+                priceValue = priceValue.replace(/[^0-9$]/g, "")
+                let split = priceValue.split("$")
+                priceValue = String(parseInt(split[0]) + parseInt(split[1]))
+                console.log(`Added Price: ${split[0]} + ${split[1]} = ${priceValue}`)
+            }
+            lowerRow += `, "${priceValue.replace(/[^0-9]/g, "")}"`
         })
 
-        let priceInfo = `${lowerRow}`.replaceAll("+1", "").replaceAll("+2", "").replace(/[^a-zA-Z ,0-9:.\n]/g, "")
+        let priceInfo = `${lowerRow}`
         return priceInfo
     }
     else {
         let priceInfos = []
         container.prices.forEach((price) => {
-            let priceInfo = `, ${price.site.replaceAll(",", " ")}, ${price.price.replace(/[^0-9]/g, "")}`
+            let priceValue = price.price
+            if (priceValue.includes("$")) {
+                priceValue = priceValue.replace(/[^0-9$]/g, "")
+                let split = priceValue.split("$")
+                priceValue = String(parseInt(split[0]) + parseInt(split[1]))
+                console.log(`Added Price: ${split[0]} + ${split[1]} = ${priceValue}`)
+            }
+            let priceInfo = `, ${price.site.replaceAll(",", " ")}, ${priceValue.replace(/[^0-9]/g, "")}`
             priceInfos.push(priceInfo)
         })
         return priceInfos
