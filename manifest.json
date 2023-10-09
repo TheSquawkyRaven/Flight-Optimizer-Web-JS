@@ -9,8 +9,10 @@
 		"scripting"
 	],
 	"action": {
-		"default_popup": "popup.html",
-		"default_icon": {}
+		"default_popup": "popup.html"
+	},
+	"icons": {
+		"16": "icon.png"
 	},
 	"host_permissions": [
 		"https://www.google.com/travel/flights/search"
