@@ -15,13 +15,16 @@ if (fullScraper_constants === undefined) {
     var fArrivalTimeQuery = "span:nth-child(2) > span > span"
     var fAirlineQuery = ".sSHqwe.tPgKwe.ogfYpf > span:nth-child(1)"
     var fAirlineQuerySecondary = ".sSHqwe.tPgKwe.ogfYpf > span:nth-child(3)"
-    var fAirlineAvoidClassQuery = "ali83b" //Separate tickets.... (skip)
     var fTravelTimeQuery = ".Ak5kof > .gvkrdb.AdWm1c.tPgKwe.ogfYpf"
     var fListedPriceQuery = ".U3gSDe > .BVAVmf.I11szd.POX3ye"
 
     var priceListQuery = ".AnvSgb"
     var priceListQuerySecondary = ".UUyzUc"
     var pricesQuery = ".gN1nAc"
+    var pricesSpecialQuery = ".rRu7ob.sMVRZe.gN1nAc"
+    var pricesSpecialOptionQuery = ".pf4rYe"
+    var pricesSpecialOptionTypeQuery = ".swl0h.YMlIz.ogfYpf"
+    var pricesSpecialOptionPriceQuery = ".uNICf"
     var priceSiteQuery = ".ogfYpf.AdWm1c"
     var pricePriceQuery = ".IX8ct.YMlIz.Y4RJJ"
 
@@ -385,9 +388,18 @@ function readFlight(flightNodes, index) {
     fDetail.arrivalTime = fTimeSet.querySelector(fArrivalTimeQuery).textContent
 
     // Airline
-    let airlineNode = fNode.querySelector(fAirlineQuery)
-    if (airlineNode.classList.contains(fAirlineAvoidClassQuery)) {
-        airlineNode = fNode.querySelector(fAirlineQuerySecondary)
+    let airlineNodes = fNode.querySelector(fAirlineQuery).childNodes
+    let airlineNode
+    if (airlineNodes.length == 1) {
+        airlineNode = airlineNodes[0]
+    }
+    else {
+        // Ignore Separate Tickets or Separate Tickets Booked Together warning
+        airlineNode = airlineNodes[2]
+        if (airlineNodes.length != 3) {
+            console.error("Invalid number of airline nodes! (Has " + airlineNodes.length + " Nodes)")
+            console.error(airlineNodes)
+        }
     }
     fDetail.airline = airlineNode.textContent
 
@@ -419,6 +431,28 @@ function readPrices() {
         pDetail.site = price.querySelector(priceSiteQuery).textContent.substring(10)
         pDetail.price = price.querySelector(pricePriceQuery).textContent
         prices.push(pDetail)
+    })
+
+    // Special Booking with multiple options (So far I found Singapore Airlines will have this)
+    const specialPriceNodes = list.querySelectorAll(pricesSpecialQuery)
+    specialPriceNodes.forEach((specialPriceNode) => {
+        let site = specialPriceNode.querySelector(priceSiteQuery).textContent.substring(10)
+        let specialOptions = specialPriceNode.querySelectorAll(pricesSpecialOptionQuery)
+        let specialCount = 1
+        specialOptions.forEach((specialOption) => {
+            var pDetail = {}
+            let type = specialOption.querySelector(pricesSpecialOptionTypeQuery)
+            if (type == null) {
+                console.error(specialOption)
+                console.error(pricesSpecialOptionTypeQuery)
+                pDetail.site = site + " " + (specialCount++).toString()
+            }
+            else {
+                pDetail.site = site + " " + type.textContent
+            }
+            pDetail.price = specialOption.querySelector(pricesSpecialOptionPriceQuery).textContent
+            prices.push(pDetail)
+        })
     })
 
     return prices
