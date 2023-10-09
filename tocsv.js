@@ -51,7 +51,7 @@ function processDat(data) {
                 return
             }
 
-            let departureInfo = `, ${toFlight.airline.replace(",", ".")}, ${toFlight.departure}, ${toFlight.arrivalTime}, ${toFlight.travelTime}, ${toFlight.listedPrice.replace(/[^0-9]/g, "")}`.replace(/\+[0-9]/g, "")
+            let departureInfo = `, ${toFlight.airline.replace(",", ".")}, ${toFlight.departure}, ${toFlight.arrivalTime.replace(/\+[0-9]/g, "")}, ${toFlight.travelTime}, ${toFlight.listedPrice.replace(/[^0-9]/g, "")}`
 
             if (isRoundTrip) {
                 let basicInfo = `${set}, ${departureDate}, ${roundReturnDate}`
@@ -62,7 +62,7 @@ function processDat(data) {
                     }
                     resetPurchaseSites(purchaseSites)
 
-                    let roundReturnInfo = `, ${fromFlight.airline.replace(",", ".")}, ${fromFlight.departure}, ${fromFlight.arrivalTime}, ${fromFlight.travelTime}, ${fromFlight.listedPrice.replace(/[^0-9]/g, "")}`.replace(/\+[0-9]/g, "")
+                    let roundReturnInfo = `, ${fromFlight.airline.replace(",", ".")}, ${fromFlight.departure}, ${fromFlight.arrivalTime.replace(/\+[0-9]/g, "")}, ${fromFlight.travelTime}, ${fromFlight.listedPrice.replace(/[^0-9]/g, "")}`
 
                     let priceInfo = retrievePrice(fromFlight, purchaseSites, purchaseOrder, flatten)
                     if (!flatten) {
